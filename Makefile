@@ -1,4 +1,4 @@
-READINGS := scd2 data-mart
+READINGS := scd2 data-mart streaming-transformations stream-transformations
 .PHONY: all clean $(READINGS)
 all: $(READINGS)
 $(READINGS):
