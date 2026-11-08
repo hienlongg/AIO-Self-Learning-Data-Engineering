@@ -1,0 +1,1441 @@
+\documentclass[12pt]{article}
+\usepackage{makecell}
+\usepackage{hyphenat}
+\usepackage[utf8]{vietnam}
+\usepackage[vietnamese=nohyphenation]{hyphsubst}
+\usepackage[vietnamese]{babel}
+\usepackage[table,dvipsnames]{xcolor} % Required for row coloring
+\usepackage{booktabs} % Required for nicer horizontal lines
+\usepackage{ragged2e}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage[inline,shortlabels]{enumitem}
+\usepackage{setspace}
+\usepackage{longtable}
+\usepackage{bm} 
+\usepackage[inkscapelatex=false]{svg}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,mathrsfs}
+% \usepackage[draft]{hyperref}
+\usepackage{hyperref}
+\usepackage{xparse}
+\usepackage{fontawesome5}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usepackage[framemethod=TikZ]{mdframed}
+\usetikzlibrary{matrix, fit, shadows, positioning, arrows.meta, calc, shapes.geometric, backgrounds, shapes.symbols}
+\usepackage{paracol}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage{multirow}
+%  biblatex (thay cho IEEEtran.bst) ------------------------------------
+\usepackage[
+    backend=bibtex,
+    style=ieee,
+    citestyle=numeric-comp,
+    maxnames=1,     % chỉ hiển thị 1 tên tác giả, phần còn lại thành ``et al."
+    minnames=1,
+    uniquelist=false,
+    hyperref=false
+]{biblatex}
+\usepackage{forest}
+% \addbibresource{references.bib} % bỏ trống vì tài liệu này chưa dùng citation
+\DefineBibliographyStrings{english}{
+  andothers = {et\addabbrvspace al\adddot}
+}
+\AtBeginBibliography{\selectlanguage{english}}
+
+% -----------------------------------------------------------------
+\AtBeginDocument{\renewcommand\refname{}}
+
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixtocname}{Phụ lục}      
+\renewcommand{\appendixpagename}{Phụ lục}
+
+\usepackage{xurl}
+\setlength{\headheight}{14.5pt}
+\setlength{\topmargin}{-.5in} \setlength{\textheight}{9.25in}
+\setlength{\oddsidemargin}{-0.1in} \setlength{\textwidth}{6.8in}
+
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\Huge\bfseries}
+\setlength{\cftaftertoctitleskip}{2em}
+\setlength{\cftbeforesubsecskip}{7pt} % giãn cách subitem mục lục
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftsecnumwidth}{3em}
+\renewcommand{\cftsecaftersnum}{\quad}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftsubsecnumwidth}{4em}
+\renewcommand{\cftsubsecaftersnum}{\quad}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
+\setlength   {\cftsubsubsecnumwidth}{5em}  
+\renewcommand{\cftsubsubsecaftersnum}{\quad}
+
+\PassOptionsToPackage{vietnamese.licr}{babel}
+\usepackage{../../latex/styles/vipythonhighlight}
+\usepackage{../../latex/styles/tvietlistings}
+\newcounter{mycounter}
+\newcommand\showmycounter{\stepcounter{mycounter}\themycounter}
+\usepackage{lipsum}
+\newcommand\showlips{\stepcounter{mycounter}\lipsum[\value{mycounter}]}
+
+%--------------------------------------------------------------------
+\usepackage{framed}
+\usepackage{fancyhdr}
+\usepackage{upquote}
+\usepackage{listings}	 
+
+\usepackage[toc, nonumberlist, style=super]{glossaries}
+\makenoidxglossaries
+
+\newglossarystyle{clean3col}{%
+    % 1) Table layout: 3 columns
+    \renewenvironment{theglossary}%
+    {%
+      \begin{longtable}{@{}
+        >{\setlength{\parindent}{0pt}\RaggedRight\arraybackslash}p{0.2\linewidth}
+        >{\setlength{\parindent}{0pt}\RaggedRight\arraybackslash}p{0.23\linewidth}
+        >{\setlength{\parindent}{0pt}\RaggedRight\arraybackslash}p{0.52\linewidth}
+      @{}}%
+    }%
+    {\end{longtable}}%
+
+    % 2) Header row
+    \renewcommand{\glossaryheader}{%
+        \bfseries Thuật ngữ &
+        \bfseries Tạm dịch &
+        \bfseries Mô tả \\
+        \midrule
+        \endhead
+    }%
+
+    % 3) Each entry row
+    \renewcommand{\glossentry}[2]{%
+        \itshape \glstarget{##1}{\glossentryname{##1}} &
+        \glsentryuseri{##1} &
+        \glossentrydesc{##1} \\
+        \addlinespace[6pt]
+    }%
+}
+
+
+% Color --------------------------------------------------------------------
+\usepackage{epigraph}
+\usepackage{titlesec}
+
+\definecolor{codebackground}{RGB}{250, 250, 250}
+\definecolor{codecomment}{RGB}{34, 139, 34}
+\definecolor{codekeyword}{RGB}{0, 0, 255}
+\definecolor{codestring}{RGB}{255, 0, 0}
+\definecolor{codeidentifier}{RGB}{0, 0, 0}
+\definecolor{codelinenumbers}{RGB}{90, 90, 90}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\definecolor{aivnGreen}{RGB}{52,79,30}  
+\definecolor{aivnCodeOutputColor}{RGB}{11,83,148}  
+\definecolor{captiongray}{gray}{0.15} 
+\definecolor{captionbg}{RGB}{250,250,250}
+
+\definecolor{foldercolor}{RGB}{0, 102, 204}
+\definecolor{filecolor}{RGB}{104, 104, 104}
+\definecolor{scriptcolor}{RGB}{180, 50, 50}
+\definecolor{pythoncolor}{RGB}{0, 128, 128}
+
+% --- Extra Brand colors for the table ---
+\definecolor{brandIndigo}{HTML}{333D91} 
+\definecolor{rowLavender}{HTML}{EEECFA}
+\setlength{\parskip}{0.3em}
+
+% Table
+\newtcolorbox{captionbelowboxaivn}{
+    colback=aivnGreen,
+    colframe=aivnGreen,
+    boxrule=0pt,
+    arc=4pt,
+    left=4pt,
+    right=4pt,
+    top=2pt,
+    bottom=2pt,
+    width=\linewidth,
+    boxsep=4pt,
+    halign=center,
+    % fontupper=\bfseries\color{white}
+    fontupper=\color{white}
+}
+
+% Figure
+\newtcolorbox{figurecardcaptionaivn}{
+  colback=aivnGreen,        % Màu nền (background color)
+  colframe=aivnGreen,       % Màu viền box (border color)
+  boxrule=0pt,              % Độ dày viền box (0pt = không viền)
+  arc=2pt,                  % Độ bo góc (2pt là bo nhẹ, tăng để bo tròn hơn)
+  top=3pt,                  % Padding phía trên nội dung
+  bottom=3pt,               % Padding phía dưới nội dung
+  left=10pt,                % Padding bên trái
+  right=10pt,               % Padding bên phải
+  width=\linewidth,         % Chiều rộng bằng toàn bộ dòng
+  fontupper=\small\fontsize{11pt}{13pt}\selectfont\color{white} 
+}
+
+% Tạo counter riêng
+\newcounter{hinh}
+% Định nghĩa macro caption Hình
+\newcommand{\capfig}[1]{%
+  \refstepcounter{hinh}%
+  % \textbf{Hình~\thehinh:}~#1
+    Hình~\thehinh:~#1
+}
+
+\newtcolorbox{figurecaptionmodern}{
+  colback=captionbg,
+  colframe=aivnGreen,
+  boxrule=1.5pt,
+  bottomrule=2pt,  
+  toptitle=0pt,
+  bottomtitle=0pt,
+  left=6pt,
+  right=6pt,
+  top=4pt,
+  bottom=2pt,
+  width=\linewidth,
+  fontupper=\small\fontsize{11pt}{13pt}\selectfont\color{black},
+  halign=center
+}
+
+% Code Block -----------------------------------------------------------------
+\newtcolorbox{aivncodebox}[1][]{%
+  enhanced,
+  colback=gray!10,
+  colframe=aivnGreen,
+  coltitle=white,
+  colbacktitle=aivnGreen,
+  title=#1,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  breakable,
+  listing engine=listings,
+  listing options={
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    commentstyle=\color{ForestGreen},
+    keywordstyle=\color{blue},
+    stringstyle=\color{red!70!black},
+    numbers=left, upquote=true,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em
+  }
+}
+
+% Code Output Block -----------------------------------------------------------------
+\newtcolorbox{aivnCodeOutput}[1][]{%
+  enhanced,
+  colback=gray!10,
+  colframe=aivnCodeOutputColor,
+  coltitle=white,
+  colbacktitle=aivnCodeOutputColor,
+  title=#1,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  breakable,
+  listing engine=listings,
+  listing options={
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    commentstyle=\color{ForestGreen},
+    keywordstyle=\color{blue},
+    stringstyle=\color{red!70!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em
+  }
+}
+
+% Last argument allows more tcolorbox options to be added
+
+% --- SQL code box ------------------------------------------------------------
+\lstdefinestyle{sqlstyle}{
+    backgroundcolor=\color{codebackground},
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red!70!black},
+    commentstyle=\color{ForestGreen}\itshape,
+    basicstyle=\ttfamily\footnotesize,
+    columns=fullflexible,
+    keepspaces=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    upquote=true,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em
+}
+
+\newtcblisting{aivnsqlbox}[1][]{%
+  enhanced,
+  colback=gray!10,
+  colframe=aivnGreen,
+  coltitle=white,
+  colbacktitle=aivnGreen,
+  title=#1,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  breakable,
+  listing engine=listings,
+  listing options={language=SQL, style=sqlstyle}
+}
+
+\newtcblisting{aivnpybox}[1][]{%
+  enhanced, colback=gray!10, colframe=aivnGreen, coltitle=white, colbacktitle=aivnGreen,
+  title=#1, fonttitle=\bfseries\sffamily, listing only, breakable, listing engine=listings,
+  listing options={language=Python, style=sqlstyle, keywordstyle=\color{blue}\bfseries}
+}
+
+% --- Plain text / config (YAML, Jinja) code box ------------------------------
+\lstdefinestyle{plainstyle}{
+    backgroundcolor=\color{codebackground},
+    basicstyle=\ttfamily\footnotesize,
+    columns=fullflexible,
+    keepspaces=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    upquote=true,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em
+}
+
+\newtcblisting{aivnplainbox}[1][]{%
+  enhanced,
+  colback=gray!10,
+  colframe=aivnCodeOutputColor,
+  coltitle=white,
+  colbacktitle=aivnCodeOutputColor,
+  title=#1,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  breakable,
+  listing engine=listings,
+  listing options={language={}, style=plainstyle}
+}
+
+% --- Placeholder cho sơ đồ cần vẽ sau ----------------------------------------
+\newcommand{\diagramplaceholder}[2][5.5cm]{%
+  \begin{center}
+  \begin{tcolorbox}[enhanced, breakable,
+      colback=gray!4, colframe=gray!60, boxrule=0.8pt, arc=4pt,
+      width=\linewidth, height=#2, valign=center, halign=center]
+    {\color{gray}\sffamily\faImage\hspace{1em}\textbf{[PLACEHOLDER --- Sơ đồ]}}\\[8pt]
+    {\color{gray}\sffamily\itshape #1}
+  \end{tcolorbox}
+  \end{center}
+}
+
+% --- Guideline/Tip box ---
+\newtcolorbox{guidelinebox}[2][]{
+    enhanced, colback=yellow!10!white, colframe=orange!90!black, boxrule=1pt, arc=4pt,
+    fonttitle=\bfseries, attach boxed title to top left={yshift=-2mm, xshift=3mm},
+    colbacktitle=orange!90!black, coltitle=white,
+    title=\faLightbulb\hspace{1mm} #2, #1
+}
+
+\newtcolorbox{notebox}[1][]{
+  enhanced,  colback=yellow!10, colframe=orange!80, boxrule=1pt, 
+  arc=4pt, fontupper=\small, attach boxed title to top left={yshift=-2mm, xshift=3mm},
+  colbacktitle=orange!80,  coltitle=white, fonttitle=\bfseries,  
+  title=\faInfoCircle~\textbf{Lưu ý},  #1
+}
+
+\newtcolorbox{infobox}[1]{%
+    enhanced, 
+    breakable, 
+    colback=green!3, 
+    colframe=green!3, 
+    arc=5pt,
+    borderline west={3pt}{0pt}{aivnGreen},
+    attach boxed title to top left={ 
+        yshift*=-\tcboxedtitleheight/2, 
+        xshift=-0.1em 
+    },
+    colbacktitle=aivnGreen, %
+    coltitle=white, 
+    fonttitle=\bfseries, 
+    boxed title style={ 
+        arc=4pt, 
+        top=2pt, 
+        bottom=2pt,
+        left=8pt,
+        right=8pt,
+    },
+    title={\faInfoCircle\quad #1}
+}
+\newtcolorbox{examplebox}[1]{%
+    enhanced,
+    breakable,
+    colback=brandIndigo!5,      
+    colframe=brandIndigo!5,     
+    arc=5pt,
+    borderline west={3pt}{0pt}{brandIndigo}, 
+    attach boxed title to top left={
+        yshift*=-\tcboxedtitleheight/2,
+        xshift=-0.1em
+    },
+    colbacktitle=brandIndigo,   
+    coltitle=white,
+    fonttitle=\bfseries,
+    boxed title style={
+        arc=4pt,
+        top=2pt,
+        bottom=2pt,
+        left=8pt,
+        right=8pt,
+    },
+    title={\faLightbulb\quad #1} 
+}
+% Prompt Block ---------------------------------------------------------------
+\definecolor{promptBlue}{HTML}{2F5D8C}
+\definecolor{promptBg}{HTML}{F6F9FC}
+\definecolor{promptBorder}{HTML}{B7C9DC}
+
+% Dùng cho prompt đã viết theo cú pháp LaTeX bình thường
+\newtcolorbox{promptbox}[1][Prompt]{%
+    enhanced,
+    breakable,
+    colback=promptBg,
+    colframe=promptBorder,
+    coltitle=white,
+    colbacktitle=promptBlue,
+    fonttitle=\bfseries\sffamily,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=8pt,
+    right=8pt,
+    top=2pt,
+    bottom=1pt,
+    before skip=8pt,
+    after skip=8pt,
+    borderline west={3pt}{0pt}{promptBlue},
+    fontupper=\small\sffamily,
+}
+
+% Dùng cho prompt raw: giữ nguyên xuống dòng, không highlight keyword
+\newtcblisting{promptboxraw}[1][Prompt]{%
+    enhanced,
+    breakable,
+    listing only,
+    listing engine=listings,
+    colback=promptBg,
+    colframe=promptBorder,
+    coltitle=white,
+    colbacktitle=promptBlue,
+    fonttitle=\bfseries\sffamily,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=8pt,
+    right=8pt,
+    top=-4pt,
+    bottom=-4pt,
+    before skip=4pt,
+    after skip=4pt,
+    borderline west={3pt}{0pt}{promptBlue},
+    listing options={
+        language={},
+        basicstyle=\small\ttfamily,
+        columns=fullflexible,
+        keepspaces=true,
+        breaklines=true,
+        showstringspaces=false,
+        numbers=none,
+        frame=none,
+        keywordstyle=\color{black},
+        commentstyle=\color{black},
+        stringstyle=\color{black},
+        identifierstyle=\color{black}
+    }
+}
+
+
+%--------------------------------------------------------------------
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebackground},
+    commentstyle=\color{codecomment},
+    keywordstyle=\color{codekeyword},
+    stringstyle=\color{codestring},
+    identifierstyle=\color{codeidentifier},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numberstyle=\tiny\color{codelinenumbers}, 
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,    
+    citecolor=green,
+    urlcolor=blue,
+    pdftitle={Tài liệu đọc: Delivery Semantics, Replayability và Deduplication trong Apache Kafka},
+    pdfpagemode=FullScreen,
+}
+
+%--------------------------------------------------------------------
+\newcounter{choice}
+\renewcommand\thechoice{($\alph{choice}$)}
+\newcommand\choicelabel{\thechoice}
+
+%--------------------------------------------------------------------
+\newenvironment{choices}%
+  {\list{\choicelabel}%
+     {\usecounter{choice}\def\makelabel##1{\hss\llap{##1}}%
+       \settowidth{\leftmargin}{W.\hskip\labelsep\hskip 0 em}%
+       \def\choice{%
+         \item
+       } % choice
+       \labelwidth\leftmargin\advance\labelwidth-\labelsep
+       \topsep=0pt
+       \partopsep=0pt
+     }%
+  }%
+  {\endlist}
+  
+%--------------------------------------------------------------------
+\def\CChoice{%
+      \choice
+      \addanswer{\theenumi}{\thechoice}%
+    }
+    \let\CChoice\CChoice
+%    \par % Uncomment this to have choices always start a new line
+   % \let\par\@empty
+    % If we're continuing the textbf containing the question,
+    % then leave a bit of space before the first choice:
+    \ifvmode\else\enskip\fi
+    \ignorespaces
+  %
+  {}
+\makeatother
+\newbox\allanswers
+\setbox\allanswers=\hbox{}
+\newcommand{\addanswer}[2]{%
+  \global\setbox\allanswers=\hbox{\unhbox\allanswers \quad #1.~#2}%
+}
+\newcommand{\showanswers}{%
+  \vfill
+  \begin{center}
+    Answers
+  \end{center}
+  \unhbox\allanswers
+}
+
+\makeatletter
+\newenvironment{multichoices}[1][1]{%
+\begin{multicols}{#1}}{%
+\end{multicols}}
+\makeatother
+
+\pagestyle{fancy}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\E}{\mathbb{E}}
+
+% Outline --------------------------------------------------------------------
+% Section numbering ----------------------------------------------------------
+\renewcommand{\thesection}{\Roman{section}.} 
+\renewcommand{\thesubsection}{\thesection\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\thesubsection\arabic{subsubsection}.}
+
+% Paper-like section title sizes --------------------------------------------
+% Title paper: 17pt
+% Section should be clearly smaller than title but still prominent.
+\titleformat{\section}
+  {\normalfont\fontsize{16pt}{20pt}\selectfont\bfseries}
+  {\thesection}
+  {0.85em}
+  {}
+
+\titleformat{\subsection}
+  {\normalfont\fontsize{14pt}{16pt}\selectfont\bfseries}
+  {\thesubsection}
+  {0.75em}
+  {}
+
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{12pt}{15pt}\selectfont\bfseries}
+  {\thesubsubsection}
+  {0.65em}
+  {}
+
+% Paper-like compact spacing -------------------------------------------------
+\titlespacing*{\section}
+  {0pt}
+  {1.25em plus 0.2em minus 0.1em}
+  {0.65em plus 0.1em minus 0.1em}
+
+\titlespacing*{\subsection}
+  {0pt}
+  {1.0em plus 0.2em minus 0.1em}
+  {0.45em plus 0.1em minus 0.1em}
+
+\titlespacing*{\subsubsection}
+  {0pt}
+  {0.85em plus 0.15em minus 0.1em}
+  {0.35em plus 0.1em minus 0.1em}
+
+
+% Logo + Title ---------------------------------------------------------------
+
+\setlength{\droptitle}{-7em}
+
+% Title horizontal rule
+\newcommand{\TitleRule}{%
+  \rule{0.90\textwidth}{0.6pt}
+}
+
+% Chiều cao vùng title giữa 2 rule
+\newlength{\TitleBlockHeight}
+\setlength{\TitleBlockHeight}{2.6cm}
+
+\pretitle{%
+  
+
+  % Logo row
+  \begin{tabular}{@{}c@{\hspace{1.0em}}c@{\hspace{1.0em}}c@{}}
+    \raisebox{-0.35\height}{\includegraphics[height=2.0cm]{../../shared/figures/aio2026_logo.pdf}}    
+  \end{tabular}
+
+  %\vspace{0.2em}
+
+\begin{center}
+  \TitleRule
+  \par\nointerlineskip
+}
+
+\title{%
+  \parbox[c][\TitleBlockHeight][c]{0.90\textwidth}{%
+    \centering
+    {\fontsize{17pt}{21pt}\selectfont\bfseries Tài liệu đọc: Biến đổi Dữ liệu Luồng (Streaming Transformations)\\[3pt]
+     \fontsize{13pt}{16pt}\selectfont Quản trị giao nhận tin, phát lại dữ liệu và khử trùng lặp trong Apache Kafka}
+  }%
+}
+
+\posttitle{%
+  \par\nointerlineskip
+  \TitleRule
+  \end{center}
+}
+
+\preauthor{%
+  \begin{center}
+  \fontsize{11pt}{13pt}\selectfont
+}
+
+\author{%
+  \textbf{name\_1}
+  \hspace{2.8em}
+  \textbf{name\_2}\\
+  \vspace{1em}
+  \textbf{Proofreading: }
+}
+
+\postauthor{%
+  \par
+  \end{center}
+}
+
+\date{}
+% Header --------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\href{https://www.facebook.com/aivietnam.edu.vn}{\textcolor{aivnGreen}{\bfseries AI VIET NAM (AIO2026)}}}
+\rhead{\href{https://aivietnam.edu.vn/}{\textcolor{aivnGreen}{\bfseries aivietnam.edu.vn}}}
+\fancyfoot[r]{\textcolor{aivnGreen}{\bfseries Trang \thepage}}
+\fancyfoot[l]{%
+  \href{https://zalo.me/84911118758}{%
+    \textcolor{aivnGreen}{\bfseries SĐT/Zalo: 0911118758 (Dr. Hồng Phúc)}%
+  }%
+}
+\renewcommand{\headrulewidth}{1.0pt}
+\renewcommand{\headrule}{{\color{aivnGreen}\hrule width\headwidth height\headrulewidth \vskip-\headrulewidth}}
+
+\renewcommand{\footrulewidth}{1.0pt}
+\renewcommand{\footrule}{{\color{aivnGreen}\hrule width\headwidth height\footrulewidth \vskip-\footrulewidth}}
+
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyfoot[r]{\textcolor{aivnGreen}{\bfseries Trang \thepage}}
+    \fancyfoot[l]{%
+      \href{https://zalo.me/84911118758}{%
+        \textcolor{aivnGreen}{\bfseries SĐT/Zalo: 0911118758 (Dr. Hồng Phúc)}%
+      }%
+    }
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{1.0pt}
+    \renewcommand{\footrule}{%
+        {\color{aivnGreen}\hrule width\headwidth height\footrulewidth}
+    }
+}
+
+
+
+\begin{document}
+\maketitle
+\thispagestyle{firstpage}
+\vspace{-3em}
+
+% =============================================================
+\section{Lời mở đầu: Cơn ác mộng ``Nhân bản Đơn hàng''}
+
+Hãy hình dung một kịch bản thực tế tại một sàn thương mại điện tử lớn trong sự kiện Flash Sale:
+
+\begin{examplebox}{Tình huống: Flash Sale 00:00:00}
+\textit{Đúng 00:00:00, khách hàng nhấn nút thanh toán đơn hàng trị giá 20.000.000 VNĐ. Service Web gửi một sự kiện \texttt{OrderCreated(order\_id="ORD-9999", amount=20000000)} vào message broker Apache Kafka.}
+
+\medskip
+\textit{Service Xử lý Thanh toán (Payment Worker) lắng nghe topic này và rút tiền thành công từ thẻ ngân hàng của khách hàng. Tuy nhiên, đúng vào mili-giây tiếp theo, đường truyền mạng nội bộ giữa Worker và Kafka broker bị chập chờn (network glitch). Worker không thể gửi tín hiệu xác nhận (Offset Commit) về cho Kafka và bị tiến trình giám sát coi là đã chết.}
+
+\medskip
+\textit{Một Worker dự phòng ngay lập tức được cấp quyền đọc lại phân vùng đó. Nó đọc lại chính sự kiện \texttt{ORD-9999} chưa được commit và tiếp tục gửi lệnh trừ tiền sang cổng thanh toán lần thứ hai. Tài khoản khách hàng bị trừ \textbf{40.000.000 VNĐ} cho một món hàng duy nhất.}
+\end{examplebox}
+
+Đây không phải là lỗi giả định; đây là bản chất tất yếu của \textbf{Hệ thống phân tán (Distributed Systems)}. Trong môi trường mạng không hoàn hảo, bất kỳ mắt xích nào --- từ mạng, tiến trình máy chủ, bộ nhớ, đến đĩa cứng --- đều có thể sụp đổ bất thình lình.
+
+Để xây dựng các đường ống dữ liệu (Data Pipelines) và hệ thống vi dịch vụ (Microservices) có tính toàn vẹn tuyệt đối, người kỹ sư dữ liệu không thể phó mặc số phận cho sự may rủi. Bạn phải làm chủ ba khái niệm sống còn:
+\begin{enumerate}
+    \item \textbf{Delivery Semantics}: bản chất toán học và vật lý của các cấp độ giao nhận tin (\textit{At-most-once, At-least-once, Exactly-once}).
+    \item \textbf{Replayability}: sức mạnh và rủi ro của mô hình nhật ký phân tán (\textit{Distributed Commit Log}) khi tua lại dữ liệu quá khứ.
+    \item \textbf{Deduplication Strategy}: nghệ thuật thiết kế hệ thống khử trùng lặp dữ liệu đa tầng --- từ tầng Kafka native đến tầng lưu trữ cơ sở dữ liệu (\textit{Application/Sink Idempotency}).
+\end{enumerate}
+
+% =============================================================
+\section{Nền tảng lý thuyết: Ngữ nghĩa giao nhận trong hệ phân tán}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node distance=6mm,
+    root/.style={draw=aivnGreen, fill=green!5, rounded corners=3pt, thick, align=center, text width=13cm, inner sep=5pt},
+    sem/.style={draw=aivnGreen, fill=white, rounded corners=3pt, thick, align=center, text width=4.7cm, inner sep=5pt},
+    arr/.style={-{Stealth[length=2.5mm]}, thick, aivnGreen}
+]
+\node[root] (r) {\textbf{Hệ thống phân tán không hoàn hảo}\\ {\small mạng trễ, gói tin bị drop, máy chủ crash bất tử}};
+\node[sem, below=10mm of r] (b) {\textbf{At-least-once}\\ Xử lý \textbf{xong} mới commit\\ Chấp nhận \textbf{trùng lặp}\\ (tuyệt đối không mất tin)};
+\node[sem, left=4mm of b] (a) {\textbf{At-most-once}\\ Commit \textbf{trước} khi xử lý\\ Chấp nhận \textbf{mất tin}\\ (tuyệt đối không lặp)};
+\node[sem, right=4mm of b] (c) {\textbf{Exactly-once}\\ Giao dịch end-to-end\\ Trạng thái cuối đúng \textbf{một lần}\\ (lý tưởng của hệ thống)};
+\draw[arr] (r.south) -- (b.north);
+\draw[arr] (r.south) -- ++(0,-3mm) -| (a.north);
+\draw[arr] (r.south) -- ++(0,-3mm) -| (c.north);
+\end{tikzpicture}
+\par\medskip
+\begin{figurecaptionmodern}
+\capfig{Ba cấp độ Delivery Semantics trong hệ phân tán.}
+\end{figurecaptionmodern}
+\end{figure}
+
+\subsection{Thực tế khắc nghiệt của mạng phân tán}
+
+Mọi lập trình viên khi mới bước vào thế giới phân tán thường mắc phải ít nhất một trong \textbf{8 ngụy biện của điện toán phân tán} (\textit{Fallacies of Distributed Computing}): mạng luôn tin cậy, độ trễ bằng 0, băng thông vô hạn. Trong thực tế:
+
+\begin{itemize}
+    \item \textbf{Nghịch lý Hai vị tướng (Two Generals' Problem)}: chứng minh rằng qua một kênh truyền thông không đáng tin cậy (như mạng IP), hai thực thể máy tính không bao giờ đạt được sự đồng thuận tuyệt đối về một trạng thái chung chỉ bằng cách trao đổi thông điệp xác nhận (ACK). Người gửi không bao giờ biết chắc bên nhận đã nhận được tin hay chưa nếu gói tin ACK bị mất trên đường về.
+    \item \textbf{Định lý FLP (Fischer, Lynch, Paterson)}: trong một hệ thống phân tán bất đồng bộ, không một thuật toán đồng thuận xác định nào đảm bảo đạt được đồng thuận nếu chỉ cần có một tiến trình bị lỗi dừng (crash-stop).
+\end{itemize}
+
+Một chuỗi truyền nhận thông điệp qua Kafka luôn tồn tại \textbf{ba biên giới lỗi (Failure Boundaries)}:
+\begin{enumerate}
+    \item \textbf{Producer $\rightarrow$ Broker}: mạng đứt khi gửi dữ liệu, hoặc Broker đã ghi vào RAM nhưng crash trước khi trả ACK.
+    \item \textbf{Nội tại Broker (Storage \& Replication)}: đĩa cứng trễ \texttt{fsync}, hoặc Leader broker crash trước khi kịp replicate sang các In-Sync Replicas (ISR).
+    \item \textbf{Broker $\rightarrow$ Consumer}: Consumer đã đọc và xử lý xong dữ liệu nghiệp vụ, nhưng crash hoặc mất kết nối mạng trước khi ghi nhận xong vị trí offset về cụm Kafka.
+\end{enumerate}
+
+\subsection{Phân tích 3 cấp độ Delivery Semantics}
+
+\subsubsection{At-most-once (tối đa một lần --- cho phép mất tin, cấm trùng lặp)}
+
+\textbf{Quy trình hoạt động}:
+\begin{enumerate}
+    \item Consumer kéo (poll) một lô bản ghi từ Kafka.
+    \item Consumer \textbf{lập tức commit offset} lên Kafka broker (\texttt{enable.auto.commit = true} với chu kỳ tự động, hoặc commit thủ công ngay đầu vòng lặp).
+    \item Consumer bắt đầu đưa bản ghi vào hàm xử lý nghiệp vụ hoặc ghi xuống Database.
+\end{enumerate}
+
+\textbf{Điểm gãy (Failure Mode)}: nếu trong bước 3 tiến trình ứng dụng bị lỗi Out-Of-Memory (OOM), panic, hoặc mất điện máy chủ, toàn bộ dữ liệu đang xử lý dở dang sẽ tan biến. Khi khởi động lại, ứng dụng đọc từ offset đã được commit trước đó $\rightarrow$ \textbf{dữ liệu bị mất vĩnh viễn (Data Loss)}.
+
+\textbf{Use cases}:
+\begin{itemize}
+    \item Các số liệu giám sát hệ thống (Metrics, CPU, RAM utilization).
+    \item Tọa độ GPS của phương tiện theo thời gian thực: nếu mất tọa độ ở giây thứ 5, ta chỉ cần tọa độ mới nhất ở giây thứ 6, không cần tính lại quá khứ.
+\end{itemize}
+
+\subsubsection{At-least-once (ít nhất một lần --- cho phép trùng lặp, cấm mất tin)}
+
+\textbf{Quy trình hoạt động}:
+\begin{enumerate}
+    \item Consumer kéo bản ghi từ Kafka.
+    \item Consumer đưa bản ghi vào xử lý nghiệp vụ, ghi thành công xuống Database / Data Warehouse.
+    \item Consumer \textbf{thực hiện commit offset} về Kafka (\texttt{commitSync()} hoặc \texttt{commitAsync()}).
+    \item Nếu có lỗi mạng hoặc crash ở bất kỳ khâu nào, hệ thống thực hiện thử lại (Retry).
+\end{enumerate}
+
+\textbf{Điểm gãy (Failure Mode)}: nếu việc ghi xuống Database ở bước 2 thành công, nhưng trước khi bước 3 kịp gửi gói tin commit về Kafka thì cáp mạng bị đứt, máy chủ khởi động lại hoặc Rebalance xảy ra. Khi Consumer khác (hoặc chính nó sau khi reboot) quay lại, nó đọc lại từ offset chưa commit $\rightarrow$ \textbf{dữ liệu bị xử lý hai lần (Duplication)}.
+
+\textbf{Use cases}: đây là \textbf{tiêu chuẩn công nghiệp mặc định} cho hầu hết các Data Pipeline, dịch vụ tài chính, thương mại điện tử, thanh toán và kiểm toán.
+
+\begin{infobox}{Tiên đề kỹ thuật}
+Chấp nhận trùng lặp để bảo vệ sự toàn vẹn dữ liệu, và đẩy trách nhiệm xử lý trùng lặp cho tầng tiêu thụ (\textbf{Consumer Deduplication / Idempotent Consumer}).
+\end{infobox}
+
+\subsubsection{Exactly-once Processing (xử lý chính xác một lần)}
+
+\begin{itemize}
+    \item \textbf{Giải mã hiểu lầm}: trong thế giới vật lý, \textbf{không tồn tại} ``Exactly-once \textit{delivery}'' qua dây cáp mạng. Gói tin TCP luôn phải truyền lại khi timeout. Cái mà Kafka và các hệ thống tính toán dòng (Spark Streaming, Flink) cung cấp được gọi là \textbf{Exactly-Once Processing Semantics (EOS)}.
+    \item \textbf{Bản chất của EOS}: cho dù thông điệp vật lý bị gửi lại bao nhiêu lần, \textbf{trạng thái cuối cùng (Final State)} của hệ thống đích (DB, Data Lake, Output Topic) chỉ thay đổi như thể thông điệp đó được xử lý đúng duy nhất một lần.
+    \item \textbf{Điều kiện tiên quyết}: để đạt End-to-End Exactly-Once, toàn bộ chuỗi khép kín \textit{Source $\rightarrow$ Message Broker $\rightarrow$ Processing Engine $\rightarrow$ Sink Storage} phải tham gia vào một cơ chế điều phối trạng thái hoặc giao dịch hai pha (Two-Phase Commit).
+\end{itemize}
+
+% =============================================================
+\section{Kiến trúc Log-Centric và khả năng phát lại (Replayability)}
+
+Để hiểu tại sao Kafka hỗ trợ Replay và khắc phục lỗi tốt hơn các hàng đợi truyền thống, ta so sánh mô hình lưu trữ bên dưới.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    cell/.style={draw=aivnGreen, minimum width=1.5cm, minimum height=0.8cm, fill=white, font=\small\ttfamily},
+    gone/.style={draw=red!60!black, dashed, minimum width=1.5cm, minimum height=0.8cm, fill=red!5, font=\small\ttfamily},
+    lab/.style={font=\small\bfseries, anchor=east},
+    ptr/.style={-{Stealth}, thick}
+]
+% Queue
+\node[lab] at (-0.3,1.8) {Queue truyền thống};
+\node[gone] (q0) at (1.2,1.8) {Msg A};
+\node[cell] (q1) at (3.0,1.8) {Msg B};
+\node[cell] (q2) at (4.8,1.8) {Msg C};
+\node[font=\footnotesize, text=red!60!black, above=1mm of q0] {đọc xong $\rightarrow$ bị xóa};
+% Log
+\node[lab] at (-0.3,-0.2) {Kafka Log};
+\foreach \i in {0,...,5}{\node[cell] (l\i) at (1.2+1.7*\i,-0.2) {off \i};}
+\node[font=\footnotesize, below=1mm of l0, xshift=-0.9cm, anchor=north west] {};
+\draw[ptr, aivnGreen] ($(l2.south)+(0,-0.9)$) node[below, font=\footnotesize] {Consumer A} -- (l2.south);
+\draw[ptr, brandIndigo] ($(l5.south)+(0,-0.9)$) node[below, font=\footnotesize] {Consumer B} -- (l5.south);
+\draw[ptr, orange!80!black, dashed] ($(l5.north)+(0,0.5)$) to[bend right=25] node[above, font=\footnotesize, text=orange!70!black] {Replay (tua lại)} ($(l2.north)+(0,0.5)$);
+\end{tikzpicture}
+\par\medskip
+\begin{figurecaptionmodern}
+\capfig{Hàng đợi truyền thống xóa tin sau khi đọc; Kafka giữ nguyên log và chỉ di chuyển con trỏ offset.}
+\end{figurecaptionmodern}
+\end{figure}
+
+\subsection{Đọc phá hủy (Destructive Read) và đọc bằng con trỏ bất biến}
+
+\begin{itemize}
+    \item \textbf{Message Queue truyền thống (RabbitMQ, JMS, SQS)}:
+    \begin{itemize}
+        \item Hoạt động theo cấu trúc hàng đợi cổ điển (FIFO buffer).
+        \item Khi Consumer xác nhận (ACK), Broker \textbf{xóa vĩnh viễn} bản ghi đó để giải phóng dung lượng.
+        \item \textbf{Hạn chế}: khi hệ thống downstream gặp lỗi nghiêm trọng (ví dụ bug làm tính sai 10.000 đơn hàng), bạn \textbf{không có cách nào} yêu cầu hàng đợi nhả lại 10.000 thông điệp đó. Bạn buộc phải viết script trích xuất từ nguồn gốc hoặc dùng Dead-Letter Queue.
+    \end{itemize}
+    \item \textbf{Kafka Commit Log}:
+    \begin{itemize}
+        \item Topic được tổ chức thành các \textbf{Partition} --- thực chất là các file log vật lý chỉ ghi nối tiếp (\textbf{Append-only Commit Log}) lưu cố định trên ổ cứng.
+        \item Việc Consumer đọc dữ liệu \textbf{không làm thay đổi hay xóa} dữ liệu trong log. Consumer chỉ di chuyển một con trỏ số nguyên gọi là \textbf{Offset} (chỉ số vị trí của bản ghi trong partition).
+        \item Dữ liệu chỉ bị xóa theo chính sách lưu giữ:
+        \begin{itemize}
+            \item \texttt{log.retention.hours}: thời gian lưu trữ (mặc định 7 ngày, có thể cấu hình vĩnh viễn).
+            \item \texttt{log.retention.bytes}: kích thước tối đa của partition.
+            \item \textbf{Log Compaction}: giữ lại giá trị mới nhất cho mỗi Key, dọn dẹp các giá trị cũ.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Cơ chế Replay trong Kafka hoạt động như thế nào?}
+
+Khả năng phát lại (\textbf{Replay}) là khả năng điều khiển con trỏ Offset của một Consumer Group quay ngược về một vị trí trong quá khứ để đọc lại các sự kiện đã từng tiêu thụ. Các chiến lược định vị Offset:
+
+\begin{enumerate}
+    \item \textbf{Reset về đầu phân vùng} (\texttt{earliest}): tua con trỏ về bản ghi cũ nhất còn tồn tại trong log retention.
+    \item \textbf{Reset về một Offset cụ thể} (\texttt{--to-offset <offset\_number>}): nhảy chính xác tới vị trí mong muốn.
+    \item \textbf{Reset theo mốc thời gian} (\texttt{--to-datetime} hoặc API \texttt{offsetsForTimes}): tua về đúng thời điểm trước khi thảm họa xảy ra, ví dụ \texttt{2026-03-24T08:00:00.000}.
+\end{enumerate}
+
+\begin{aivnplainbox}[Tua ngược offset của consumer group về 08:00 sáng]
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 \
+  --group order-processing-group \
+  --topic orders-topic \
+  --reset-offsets \
+  --to-datetime 2026-03-24T08:00:00.000 \
+  --execute
+\end{aivnplainbox}
+
+\subsection{Ba kịch bản sống còn của Replay trong doanh nghiệp}
+
+\begin{enumerate}
+    \item \textbf{Khắc phục bug logic nghiệp vụ (Bug Hotfix \& Recalculation)}: ứng dụng phân tích chạy suốt đêm tính sai doanh thu do chia nhầm cho 0 hoặc sai tỷ giá. Kỹ sư sửa code, deploy bản vá, rồi reset offset của Consumer Group về 00:00:00 sáng nay. Hệ thống đọc lại toàn bộ sự kiện và tính lại kết quả chuẩn xác.
+    \item \textbf{Khởi tạo hệ thống mới và nạp bù dữ liệu (Data Backfill)}: doanh nghiệp đưa vào vận hành một Data Warehouse mới trên Snowflake hoặc Elasticsearch. Thay vì viết script kết nối trực tiếp vào OLTP làm nghẽn hệ thống đang chạy, chỉ cần tạo một Consumer Group mới với \texttt{auto.offset.reset = earliest}. Toàn bộ dữ liệu lịch sử trong Kafka được đổ đầy vào hệ thống mới.
+    \item \textbf{Phục hồi sau thảm họa (Disaster Recovery \& State Rebuilding)}: Read-Replica hoặc Redis Cache hỏng ổ cứng và mất sạch dữ liệu. Chỉ cần reset offset về checkpoint an toàn gần nhất để tái tạo toàn bộ trạng thái.
+\end{enumerate}
+
+% =============================================================
+\section{Nguyên nhân gây trùng lặp và mô phỏng thực nghiệm}
+
+Muốn thiết kế chiến lược chống trùng lặp hiệu quả, bạn phải tận mắt chứng kiến và tái hiện được các kịch bản sinh ra duplicate trong môi trường kiểm thử.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw=aivnGreen, rounded corners=2pt, fill=white, minimum height=0.8cm, align=center, font=\small},
+    bad/.style={draw=red!60!black, rounded corners=2pt, fill=red!5, minimum height=0.8cm, align=center, font=\small},
+    arr/.style={-{Stealth}, thick}
+]
+% 1
+\node[font=\small\bfseries, anchor=west] at (0,3.2) {1. Producer Retry (ACK bị drop)};
+\node[box] (p) at (1.2,2.2) {Producer};
+\node[box] (b1) at (6.2,2.2) {Broker: ghi Offset 10};
+\draw[arr] (p) -- node[above, font=\footnotesize] {Message A} (b1);
+\draw[arr, red!60!black, dashed] (b1.south) -- ++(0,-0.5) -| node[pos=0.25, below, font=\footnotesize, text=red!60!black] {ACK bị drop} (p.south);
+\node[bad] at (11.3,2.2) {Retry A $\rightarrow$ Offset 11\\\textbf{DUPLICATE LOG}};
+% 2
+\node[font=\small\bfseries, anchor=west] at (0,0.3) {2. Consumer Hard Crash (chết trước khi commit)};
+\node[box] (c) at (1.2,-0.7) {Consumer};
+\node[box] (db) at (5.2,-0.7) {Ghi DB thành công};
+\node[bad] (cr) at (8.7,-0.7) {CRASH / OOM\\trước khi commit};
+\node[bad] at (13.0,-0.7) {Reboot, đọc lại Offset\\\textbf{DUPLICATE DB}};
+\draw[arr] (c) -- (db);
+\draw[arr] (db) -- (cr);
+\draw[arr] (cr) -- (10.9,-0.7);
+% 3
+\node[font=\small\bfseries, anchor=west] at (0,-2.2) {3. Rebalance Timeout (xử lý quá \texttt{max.poll.interval.ms})};
+\node[box] (ca) at (1.2,-3.2) {Consumer A\\poll 100 msgs};
+\node[bad] (to) at (5.5,-3.2) {Xử lý $>$ 5 phút\\Coordinator coi A đã chết};
+\node[box] (cb) at (10.2,-3.2) {Consumer B nhận\\partition, đọc lại};
+\node[bad] at (14.0,-3.2) {\textbf{DUPLICATE}};
+\draw[arr] (ca) -- (to);
+\draw[arr] (to) -- (cb);
+\draw[arr] (cb) -- (12.6,-3.2);
+\end{tikzpicture}
+\par\medskip
+\begin{figurecaptionmodern}
+\capfig{Ba điểm gãy sinh ra bản ghi trùng lặp.}
+\end{figurecaptionmodern}
+\end{figure}
+
+\subsection{Phân tích chi tiết 3 điểm gãy}
+
+\subsubsection{Điểm gãy 1: Producer Retry Duplicate (network drop ACK)}
+\begin{itemize}
+    \item Producer gửi bản ghi với Key \texttt{user\_123}, Value \texttt{"Thanh toán 100k"}.
+    \item Broker ghi nhận thành công tại Offset 45, rồi gửi ACK về Producer. Nhưng ngay lúc này switch mạng quá tải và gói TCP ACK bị drop.
+    \item Hết \texttt{request.timeout.ms}, Producer cho rằng thông điệp chưa đến Broker. Vì \texttt{retries > 0}, Producer tự động gửi lại thông điệp y hệt.
+    \item Broker (nếu không bật chế độ Idempotent) tiếp nhận gói tin mới và ghi tiếp tại Offset 46.
+    \item \textbf{Hậu quả}: hai bản ghi giống hệt nhau tồn tại song song trong Kafka log.
+\end{itemize}
+
+\subsubsection{Điểm gãy 2: Consumer Crash Before Commit (At-least-once Replay)}
+\begin{itemize}
+    \item Consumer lấy 1 batch gồm 50 bản ghi, duyệt từng bản ghi và chạy \texttt{INSERT INTO bank\_transactions (...)}.
+    \item Bản ghi thứ 50 vừa được ghi thành công vào PostgreSQL.
+    \item Ngay trước khi \texttt{consumer.commitSync()} kịp chạy, máy chủ bị rút điện hoặc kernel bắn \texttt{SIGKILL} do vượt ngưỡng RAM (OOM).
+    \item Do offset chưa được lưu vào topic nội bộ \texttt{\_\_consumer\_offsets}, khi sống lại tiến trình đọc từ bản ghi số 1 đến 50 và tiếp tục chạy \texttt{INSERT}.
+    \item \textbf{Hậu quả}: toàn bộ 50 giao dịch bị ghi đúp vào Database.
+\end{itemize}
+
+\subsubsection{Điểm gãy 3: Heartbeat và Rebalance Timeout (\texttt{max.poll.interval.ms})}
+\begin{itemize}
+    \item Consumer lấy một lô 500 bản ghi. Mỗi bản ghi gọi một API bên thứ ba mất trung bình 1 giây, tổng thời gian xử lý lô là 500 giây ($\approx$ 8,3 phút).
+    \item Cấu hình mặc định là \texttt{max.poll.interval.ms = 300000} (5 phút). Quá 5 phút mà Consumer chưa gọi lại \texttt{.poll()}, Group Coordinator kết luận Consumer đã treo cứng.
+    \item Coordinator kick Consumer khỏi nhóm và kích hoạt \textbf{Rebalance}. Partition đang xử lý dở được chuyển cho Consumer khác.
+    \item Consumer mới đọc từ offset commit gần nhất (từ 5 phút trước) và xử lý lại những bản ghi mà Consumer cũ thực ra đã xử lý xong.
+    \item \textbf{Hậu quả}: hàng loạt bản ghi bị nhân bản do xử lý chồng chéo.
+\end{itemize}
+
+\subsection{Mã nguồn mô phỏng thực nghiệm (Hands-on Reproduction)}
+
+Dưới đây là mã nguồn minh họa bằng Python (\texttt{kafka-python}) giúp bạn chủ động tái tạo lỗi trong môi trường lab.
+
+\subsubsection{Mô phỏng 1: Consumer Crash trước khi Commit Offset}
+
+Kịch bản này chứng minh cách một tiến trình crash đột ngột gây ra đọc lại và nhân bản dữ liệu trong DB.
+
+\begin{aivnpybox}[reproduction\_consumer\_crash.py]
+import json
+import os
+from kafka import KafkaConsumer
+import psycopg2
+
+def simulate_consumer_crash():
+    # Ket noi Database dich
+    conn = psycopg2.connect("dbname=demo user=postgres password=secret host=localhost")
+    cursor = conn.cursor()
+
+    # Tat auto commit de kiem soat hoan toan offset
+    consumer = KafkaConsumer(
+        'orders-topic',
+        bootstrap_servers=['localhost:9092'],
+        group_id='order-processor-v1',
+        enable_auto_commit=False,   # BAT BUOC TAT
+        auto_offset_reset='earliest',
+        value_deserializer=lambda m: json.loads(m.decode('utf-8'))
+    )
+
+    print("[*] Consumer started. Listening for messages...")
+    processed_count = 0
+    for message in consumer:
+        order = message.value
+        print(f"--> Processing: OrderID={order['id']}, Offset={message.offset}")
+
+        # 1. Ghi du lieu vao Database nghiep vu
+        cursor.execute(
+            "INSERT INTO orders (id, amount, status) VALUES (%s, %s, %s);",
+            (order['id'], order['amount'], 'COMPLETED')
+        )
+        conn.commit()
+        processed_count += 1
+
+        # 2. Gia lap su co: crash o ban ghi thu 3 (OOM / SIGKILL)
+        if processed_count == 3:
+            print("[!] BOOM! Simulating SIGKILL before offset commit")
+            os._exit(1)   # tat tien trinh tuc thi, khong cleanup
+
+        # 3. Commit offset thu cong sau khi xu ly xong
+        consumer.commit()
+
+if __name__ == "__main__":
+    simulate_consumer_crash()
+\end{aivnpybox}
+
+\textbf{Hiện tượng quan sát được}:
+\begin{enumerate}
+    \item Khi chạy lần đầu, DB ghi nhận 3 bản ghi (ID 1, 2, 3), nhưng bản ghi thứ 3 chưa được commit offset.
+    \item Khởi động lại lần hai: Consumer đọc lại từ offset đã commit. Nếu Database không có ràng buộc khóa chính, bản ghi bị crash giữa chừng (ID 3) sẽ xuất hiện hai lần trong DB.
+\end{enumerate}
+
+\subsubsection{Mô phỏng 2: Rebalance do nghẽn hàm xử lý}
+
+Kịch bản này mô phỏng ứng dụng chạy tác vụ quá lâu khiến Kafka kick consumer ra khỏi group.
+
+\begin{aivnpybox}[reproduction\_rebalance\_timeout.py]
+import time
+from kafka import KafkaConsumer
+
+consumer = KafkaConsumer(
+    'orders-topic',
+    bootstrap_servers=['localhost:9092'],
+    group_id='slow-consumer-group',
+    enable_auto_commit=False,
+    # Ep timeout xuong cuc ngan de de tai hien loi
+    max_poll_interval_ms=10000,   # 10 giay
+    heartbeat_interval_ms=1000,
+    session_timeout_ms=6000
+)
+
+print("[*] Slow Consumer started...")
+
+for message in consumer:
+    print(f"[x] Received offset {message.offset}. Calling slow API...")
+
+    # Gia lap tac vu I/O nghen (goi third-party API) mat 15 giay
+    time.sleep(15)
+
+    try:
+        consumer.commit()
+        print("[v] Commit OK")
+    except Exception as e:
+        # Ket qua: CommitFailedException vi consumer da bi kick khoi group
+        print(f"[FATAL] Commit failed: {e}")
+\end{aivnpybox}
+
+% =============================================================
+\section{Thiết kế chiến lược chống trùng lặp (Deduplication)}
+
+Để giải quyết triệt để bài toán trùng lặp, ta xây dựng hệ thống phòng ngự hai tầng: \textbf{tầng Kafka-Native} và \textbf{tầng Ứng dụng/Kho lưu trữ (Application \& Sink Layer)}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    layer/.style={draw=aivnGreen, thick, rounded corners=3pt, fill=green!4, align=left, text width=14cm, inner sep=6pt},
+    strat/.style={draw=brandIndigo, fill=brandIndigo!5, rounded corners=2pt, align=left, text width=13.2cm, inner sep=3pt, font=\small},
+    arr/.style={-{Stealth[length=2.5mm]}, thick, aivnGreen}
+]
+\node[layer] (l1) {\textbf{TẦNG 1: KAFKA-NATIVE}\\[2pt]
+\small $\bullet$ \textbf{Idempotent Producer}: (PID + Sequence Number) chống duplicate trên Broker log\\
+\small $\bullet$ \textbf{Transactional API} (Read-Process-Write): EOS nội bộ Kafka-to-Kafka};
+\node[layer, below=10mm of l1] (l2) {\textbf{TẦNG 2: APPLICATION / SINK IDEMPOTENCY} (bảo vệ cơ sở dữ liệu)\\[4pt]
+\small $\bullet$ \textbf{Chiến lược 1}: Natural Idempotency (Upsert / Absolute Assignment)\\
+\small $\bullet$ \textbf{Chiến lược 2}: Transactional Dedup Table (RDBMS ACID + Unique Constraint)\\
+\small $\bullet$ \textbf{Chiến lược 3}: Idempotent State Machine (Conditional SQL Update)\\
+\small $\bullet$ \textbf{Chiến lược 4}: External Dedup Store (Redis \texttt{SET NX EX})};
+\draw[arr] (l1) -- (l2);
+\end{tikzpicture}
+\par\medskip
+\begin{figurecaptionmodern}
+\capfig{Kiến trúc Deduplication đa tầng.}
+\end{figurecaptionmodern}
+\end{figure}
+
+\subsection{Tầng 1: Giải pháp tự thân của Kafka (Kafka-Native)}
+
+\subsubsection{Idempotent Producer}
+
+Từ Kafka 3.0 trở lên, cấu hình \texttt{enable.idempotence} đã được mặc định chuyển thành \texttt{true}.
+
+\textbf{Cơ chế hoạt động}:
+\begin{enumerate}
+    \item Khi kết nối, Broker cấp cho Producer một mã định danh duy nhất gọi là \textbf{PID (Producer ID)}.
+    \item Với mỗi Partition mà Producer gửi tin vào, Producer duy trì một chỉ số nguyên tăng dần gọi là \textbf{Sequence Number} (bắt đầu từ 0).
+    \item Mỗi tin nhắn gửi lên Broker mang theo cặp định danh \texttt{(PID, Sequence Number)}.
+    \item Broker lưu Sequence Number cao nhất đã ghi nhận cho từng partition.
+    \item Nếu Broker nhận thông điệp có \texttt{Sequence Number} nhỏ hơn hoặc bằng số hiện tại, Broker biết đây là gói tin gửi lặp do rớt ACK. Broker \textbf{âm thầm bỏ qua việc ghi đĩa} nhưng vẫn \textbf{trả ACK thành công} cho Producer.
+\end{enumerate}
+
+\begin{aivnplainbox}[Cấu hình chuẩn trên Producer]
+enable.idempotence=true
+acks=all
+retries=2147483647
+max.in.flight.requests.per.connection=5
+\end{aivnplainbox}
+
+\begin{notebox}
+\textbf{Giới hạn quan trọng của Idempotent Producer}:
+\begin{itemize}
+    \item Chỉ bảo vệ trùng lặp \textbf{trong một phiên Producer sống với Broker} và \textbf{trên cùng một Partition}.
+    \item Nếu ứng dụng Producer reboot hoàn toàn, nó được cấp PID mới $\rightarrow$ mất khả năng chống trùng lặp với các tin cũ.
+    \item Hoàn toàn \textbf{bất lực} trước việc Consumer crash rồi đọc lại tin nhắn từ offset cũ.
+\end{itemize}
+\end{notebox}
+
+\subsubsection{Kafka Transactional API (EOS trong Read-Process-Write)}
+
+Sử dụng khi bạn xây dựng ứng dụng streaming chuyển tiếp: đọc từ \texttt{input-topic} $\rightarrow$ biến đổi $\rightarrow$ ghi ra \texttt{output-topic}.
+
+\begin{itemize}
+    \item Kafka giới thiệu \textbf{Transaction Coordinator} và topic nội bộ \texttt{\_\_transaction\_state}.
+    \item Trong một khối giao dịch, Producer ghi dữ liệu biến đổi vào \texttt{output-topic}, đồng thời ghi luôn consumer offset của \texttt{input-topic} vào cùng transaction.
+    \item Khi \texttt{sendOffsetsToTransaction()} và \texttt{commitTransaction()} được gọi, việc ghi dữ liệu ra topic mới và commit offset topic cũ cùng thành công hoặc cùng thất bại một cách nguyên tử.
+\end{itemize}
+
+\begin{aivnplainbox}[Cấu hình trên Downstream Consumer]
+isolation.level=read_committed
+\end{aivnplainbox}
+
+Consumer chỉ đọc các message đã commit giao dịch thành công và bỏ qua các message bị abort.
+
+\subsection{Tầng 2: Consumer Sink Idempotency}
+
+Một hàm xử lý được gọi là \textbf{bất biến (idempotent)} nếu áp dụng nó một lần hay nhiều lần liên tiếp thì kết quả cuối cùng không đổi:
+\[
+f(f(x)) = f(x)
+\]
+
+Dưới đây là 4 mẫu thiết kế tiêu chuẩn để biến Consumer thành Idempotent Sink.
+
+\subsubsection{Chiến lược 1: Natural Idempotency và Upsert}
+
+Cách tốt nhất để xử lý trùng lặp là thiết kế thao tác ghi sao cho nó tự nhiên không gây side-effect dù chạy lại nhiều lần.
+
+\begin{itemize}
+    \item \textbf{Tránh các toán tử gia tăng tương đối}:
+    \begin{itemize}
+        \item \textbf{Nguy hiểm}: \texttt{UPDATE accounts SET balance = balance + 50 WHERE user\_id = 'A';} --- mỗi lần replay, tài khoản lại được cộng thêm tiền.
+        \item \textbf{An toàn}: \texttt{UPDATE accounts SET balance = 150 WHERE user\_id = 'A' AND last\_txn\_id = 'TX-123';}
+    \end{itemize}
+    \item \textbf{Dùng Upsert / Merge dựa trên khóa tự nhiên}: thay vì \texttt{INSERT}, dùng \texttt{INSERT ... ON CONFLICT DO UPDATE} trong PostgreSQL hoặc \texttt{MERGE INTO} trong các Data Lakehouse (Delta Lake, Iceberg).
+\end{itemize}
+
+\begin{aivnsqlbox}[Upsert trong PostgreSQL]
+INSERT INTO user_profiles (user_id, full_name, email, updated_at)
+VALUES ('USR-001', 'Nguyen Van A', 'a@example.com', '2026-03-24 10:00:00')
+ON CONFLICT (user_id)
+DO UPDATE SET
+    full_name  = EXCLUDED.full_name,
+    email      = EXCLUDED.email,
+    updated_at = EXCLUDED.updated_at;
+\end{aivnsqlbox}
+
+Dù thông điệp này bị replay 100 lần, trạng thái của dòng \texttt{USR-001} vẫn giữ nguyên giá trị cuối cùng.
+
+\subsubsection{Chiến lược 2: Transactional Deduplication Table}
+
+Đây là chiến lược phổ biến và mạnh mẽ nhất khi hệ thống đích là cơ sở dữ liệu quan hệ hỗ trợ \textbf{ACID Transactions} (PostgreSQL, MySQL InnoDB, Oracle).
+
+\textbf{Ý tưởng}: tạo một bảng chuyên dụng \texttt{processed\_events} ghi lại các ID sự kiện đã xử lý. Việc ghi dữ liệu nghiệp vụ và việc ghi nhận ID sự kiện được gộp chung \textbf{trong cùng một Database Transaction}.
+
+\begin{aivnsqlbox}[Cấu trúc bảng Dedup]
+CREATE TABLE processed_events (
+    event_id     VARCHAR(128) PRIMARY KEY,
+    event_source VARCHAR(64) NOT NULL,
+    processed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+\end{aivnsqlbox}
+
+\begin{aivnpybox}[Quy trình thực thi nguyên tử]
+def process_message_transactional(message, db_conn):
+    event = json.loads(message.value)
+    event_id = event['event_id']   # khoa dinh danh duy nhat cua su kien
+
+    with db_conn.cursor() as cursor:
+        try:
+            # 1. Co gang chen event_id vao bang processed_events
+            cursor.execute(
+                """
+                INSERT INTO processed_events (event_id, event_source)
+                VALUES (%s, %s)
+                ON CONFLICT (event_id) DO NOTHING
+                RETURNING event_id;
+                """,
+                (event_id, 'order_service')
+            )
+            result = cursor.fetchone()
+
+            # Khong tra ve dong nao => event_id DA TON TAI (trung lap)
+            if result is None:
+                print(f"[!] Duplicate event {event_id}. Skip!")
+                db_conn.rollback()
+                return
+
+            # 2. Thuc thi logic nghiep vu thuc te
+            cursor.execute(
+                """
+                INSERT INTO orders (id, customer_id, total_amount, status)
+                VALUES (%s, %s, %s, %s);
+                """,
+                (event['order_id'], event['customer_id'], event['amount'], 'PAID')
+            )
+
+            # 3. Commit dong thoi ghi vet va ghi nghiep vu
+            db_conn.commit()
+            print(f"[v] Processed event {event_id}")
+
+        except Exception:
+            db_conn.rollback()
+            raise
+\end{aivnpybox}
+
+\begin{guidelinebox}{Vì sao giải pháp này an toàn?}
+Nếu ứng dụng sập ở bước nghiệp vụ, toàn bộ transaction bị rollback $\rightarrow$ \texttt{processed\_events} không có bản ghi đó, nên lần chạy lại sẽ xử lý từ đầu mà không bị kẹt. Nếu đã commit thành công mà crash trước khi commit Kafka offset, lần sau \texttt{INSERT INTO processed\_events} bị chặn ngay bởi \texttt{ON CONFLICT}.
+\end{guidelinebox}
+
+\subsubsection{Chiến lược 3: Idempotent State Machine (cập nhật trạng thái có điều kiện)}
+
+Trong các quy trình nghiệp vụ dài (ví dụ \texttt{CREATED} $\rightarrow$ \texttt{APPROVED} $\rightarrow$ \texttt{PACKED} $\rightarrow$ \texttt{SHIPPED} $\rightarrow$ \texttt{DELIVERED}), sự kiện có thể đến muộn hoặc đến lặp lại. Dùng câu lệnh SQL có mệnh đề \texttt{WHERE} để kiểm soát chặt chẽ trạng thái chuyển đổi hợp lệ. Ví dụ, một đơn hàng chỉ được chuyển sang \texttt{SHIPPED} nếu trạng thái hiện tại là \texttt{PACKED}.
+
+\begin{aivnsqlbox}[Cập nhật trạng thái có điều kiện]
+UPDATE orders
+SET status = 'SHIPPED',
+    shipped_at = '2026-03-24 14:00:00',
+    version = version + 1
+WHERE id = 'ORD-9999'
+  AND status = 'PACKED';   -- DIEU KIEN TIEN QUYET
+\end{aivnsqlbox}
+
+\begin{aivnpybox}[Xử lý kết quả trả về]
+cursor.execute(update_sql, params)
+rows_affected = cursor.rowcount
+
+if rows_affected == 0:
+    # Khong co dong nao duoc cap nhat!
+    # Hoac don hang khong ton tai, hoac da duoc cap nhat truoc do (duplicate).
+    print("[i] No state change. Message may be duplicate or out-of-order.")
+\end{aivnpybox}
+
+\subsubsection{Chiến lược 4: External Dedup Store với Redis}
+
+Khi cần ghi vào các hệ thống không hỗ trợ ACID (Elasticsearch, Amazon S3, MongoDB) hoặc gọi API bên thứ ba (SMS, cổng thanh toán), bạn không thể dùng bảng SQL để khóa. Lúc này \textbf{Redis} đóng vai trò bộ nhớ đệm phân tán kiểm tra trùng lặp cực nhanh.
+
+Mẫu thiết kế khóa nguyên tử \texttt{SET NX EX}:
+\begin{itemize}
+    \item \texttt{NX}: chỉ thiết lập nếu Key \textbf{chưa} tồn tại (\textit{Not Exists}).
+    \item \texttt{EX}: đặt thời gian tự hủy (\textit{Expiry}) để tránh tràn bộ nhớ Redis.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw=aivnGreen, rounded corners=2pt, fill=white, align=center, font=\small, text width=6.2cm, minimum height=0.8cm},
+    wbox/.style={draw=aivnGreen, rounded corners=2pt, fill=white, align=center, font=\small, text width=8.2cm, minimum height=0.8cm},
+    dec/.style={draw=brandIndigo, fill=brandIndigo!5, rounded corners=2pt, align=center, font=\small, text width=4.3cm, minimum height=0.8cm},
+    skip/.style={draw=red!60!black, fill=red!5, rounded corners=2pt, align=center, font=\small, text width=4.3cm, minimum height=0.8cm},
+    arr/.style={-{Stealth}, thick}
+]
+\node[box] (n1) {Consumer nhận \texttt{Msg(event\_id="EVT-100")}};
+\node[wbox, below=7mm of n1] (n2) {\texttt{SET dedup:EVT-100 IN\_FLIGHT NX EX 86400}};
+\node[dec, below=9mm of n2, xshift=-3.6cm] (ok) {\textbf{OK}\\Key chưa có};
+\node[skip, below=9mm of n2, xshift=3.6cm] (dup) {\textbf{None / False}\\Key đã tồn tại $\rightarrow$ DUPLICATE};
+\node[skip, below=6mm of dup] (drop) {BỎ QUA, không xử lý};
+\node[box, below=6mm of ok] (n3) {Thực thi tác vụ\\(ghi ES / gọi API ngoài)};
+\node[wbox, below=6mm of n3] (n4) {\texttt{SET dedup:EVT-100 DONE XX EX 86400}};
+\node[box, below=6mm of n4] (n5) {Commit Kafka Offset};
+\draw[arr] (n1) -- (n2);
+\draw[arr] (n2.south) -- ++(0,-2mm) -| (ok.north);
+\draw[arr] (n2.south) -- ++(0,-2mm) -| (dup.north);
+\draw[arr] (dup) -- (drop);
+\draw[arr] (ok) -- (n3);
+\draw[arr] (n3) -- (n4);
+\draw[arr] (n4) -- (n5);
+\end{tikzpicture}
+\par\medskip
+\begin{figurecaptionmodern}
+\capfig{Quy trình Redis Dedup Store.}
+\end{figurecaptionmodern}
+\end{figure}
+
+\begin{aivnpybox}[Redis dedup với SET NX EX]
+import redis
+
+r = redis.Redis(host='localhost', port=6379, db=0)
+
+def process_with_redis_dedup(event):
+    event_id = event['id']
+    dedup_key = f"dedup:events:{event_id}"
+
+    # 1. Thu gianh quyen xu ly (atomic lock), TTL = 86400s (24 gio)
+    acquired = r.set(dedup_key, "IN_PROGRESS", nx=True, ex=86400)
+
+    if not acquired:
+        # Key da ton tai trong Redis => message trung lap
+        print(f"[*] Skip duplicate event: {event_id}")
+        return
+
+    try:
+        # 2. Tac vu khong the rollback (vi du: goi API cong thanh toan)
+        call_third_party_payment_api(event)
+
+        # 3. Danh dau da hoan thanh
+        r.set(dedup_key, "COMPLETED", xx=True, ex=86400)
+
+    except Exception:
+        # Loi he thong: xoa key de cho phep retry lan sau
+        r.delete(dedup_key)
+        raise
+\end{aivnpybox}
+
+% =============================================================
+\section{Vận hành thực tế, đánh đổi (Trade-offs) và cạm bẫy Production}
+
+\subsection{Ma trận so sánh các chiến lược khử trùng lặp}
+
+\begin{table}[H]
+\centering
+\small
+\rowcolors{2}{rowLavender}{white}
+\begin{tabularx}{\textwidth}{@{}>{\RaggedRight\arraybackslash}p{3.1cm}>{\RaggedRight\arraybackslash}p{2.2cm}>{\RaggedRight\arraybackslash}p{2.1cm}>{\RaggedRight\arraybackslash}p{2.3cm}>{\RaggedRight\arraybackslash}X@{}}
+\rowcolor{aivnGreen}
+\textcolor{white}{\textbf{Chiến lược}} & \textcolor{white}{\textbf{Độ trễ}} & \textcolor{white}{\textbf{Throughput}} & \textcolor{white}{\textbf{Độ phức tạp code}} & \textcolor{white}{\textbf{Điểm yếu / Cạm bẫy}} \\
+1. Natural Upsert & Cực thấp & Rất cao & Rất thấp & Cần đích hỗ trợ upsert; dễ ghi đè mất trật tự thời gian. \\
+2. Transactional Table (RDBMS ACID) & Thấp--Trung bình & Trung bình & Trung bình & Chỉ dùng được với RDBMS; bảng dedup phình to theo năm tháng. \\
+3. State Machine (Conditional Update) & Cực thấp & Cao & Phức tạp nghiệp vụ & Đòi hỏi luồng dữ liệu có trạng thái rõ ràng (Status Lifecycle). \\
+4. Redis External Store & Trung bình (+1 network round-trip) & Cực cao & Trung bình & Nguy cơ ``TTL Trap'' khi replay message quá cũ; tốn RAM Redis. \\
+\end{tabularx}
+\end{table}
+
+\begin{captionbelowboxaivn}
+Bảng 1: So sánh bốn chiến lược Deduplication tầng Application/Sink.
+\end{captionbelowboxaivn}
+
+\subsection{Các cạm bẫy chết người trên Production}
+
+\subsubsection{Cạm bẫy 1: Cạm bẫy TTL của bộ nhớ đệm (``The TTL Trap'')}
+
+\begin{itemize}
+    \item Bạn cấu hình Redis Dedup Store với TTL 24 giờ (\texttt{86400s}) để tiết kiệm RAM. Hệ thống chạy êm đẹp suốt 6 tháng.
+    \item Một ngày nọ hệ sinh thái gặp sự cố lớn và ban quản trị quyết định \textbf{Replay dữ liệu của 7 ngày trước} từ Kafka.
+    \item \textbf{Thảm họa}: tất cả Key của 7 ngày trước trong Redis \textbf{đã hết hạn từ lâu}. Redis báo rằng mọi sự kiện replay đều là ``mới tinh'' $\rightarrow$ hệ thống xử lý lại toàn bộ, khách hàng nhận lại 7 ngày email quảng cáo và tài khoản bị trừ tiền hàng loạt.
+\end{itemize}
+
+\begin{guidelinebox}{Giải pháp}
+\begin{itemize}
+    \item Khi Replay sự kiện cũ, chuyển Consumer sang chế độ \textbf{Dry-Run} (không ghi side-effect) hoặc tạm vô hiệu hóa các tác vụ gửi thông báo ra ngoài.
+    \item Với bảng lưu vết trong SQL, không xóa dữ liệu theo TTL mù quáng; dùng Table Partitioning theo tháng để lưu trữ dài hạn dạng Cold Storage.
+\end{itemize}
+\end{guidelinebox}
+
+\subsubsection{Cạm bẫy 2: Tác dụng phụ không thể rollback (Non-Transactional Side Effects)}
+
+Giả sử luồng xử lý của bạn là:
+
+\begin{aivnpybox}[Side-effect đặt sai chỗ]
+send_confirmation_email(user)               # Gui email qua SendGrid / SMTP
+cursor.execute("INSERT INTO orders ...")    # Ghi DB
+\end{aivnpybox}
+
+Nếu lệnh ghi DB lỗi kết nối, transaction bị rollback; Kafka retry và email lại được bắn lần thứ 2. Sau 5 lần retry, khách hàng nhận 5 email nhưng trong database không hề có đơn hàng nào.
+
+\begin{guidelinebox}{Giải pháp: Transactional Outbox Pattern}
+\begin{itemize}
+    \item Tuyệt đối không gọi dịch vụ bên ngoài trực tiếp trong vòng lặp consumer.
+    \item Ghi sự kiện cần làm vào bảng \texttt{outbox} trong \textbf{cùng database transaction} với dữ liệu nghiệp vụ.
+    \item Một tiến trình nền (Outbox Worker) riêng biệt đọc từ bảng \texttt{outbox}, gửi email, và chỉ đánh dấu hoàn tất khi có phản hồi.
+\end{itemize}
+\end{guidelinebox}
+
+\subsection{Checklist chuẩn bị cho môi trường Production}
+
+Trước khi đưa một Kafka Pipeline lên Production, hãy rà soát từng mục:
+
+\begin{itemize}[label=$\square$]
+    \item \textbf{Cấu hình Producer}:
+    \begin{itemize}[label=$\square$]
+        \item Đã bật \texttt{enable.idempotence=true} chưa?
+        \item Đã cấu hình \texttt{acks=all} để dữ liệu ghi vào toàn bộ ISR chưa?
+        \item Đã đặt \texttt{max.in.flight.requests.per.connection <= 5} để không bị xáo trộn thứ tự khi retry chưa?
+    \end{itemize}
+    \item \textbf{Cấu hình Consumer}:
+    \begin{itemize}[label=$\square$]
+        \item Đã đặt \texttt{enable.auto.commit=false} chưa?
+        \item \texttt{max.poll.interval.ms} đã được đo đạc dựa trên kịch bản tải nặng nhất chưa? (Khuyến nghị: gấp 3 lần thời gian xử lý trung bình của một batch.)
+        \item Đã có Graceful Shutdown Hook để commit offset an toàn khi nhận tín hiệu \texttt{SIGTERM} chưa?
+    \end{itemize}
+    \item \textbf{Thiết kế Deduplication}:
+    \begin{itemize}[label=$\square$]
+        \item Mọi sự kiện nghiệp vụ đã có \textbf{định danh duy nhất toàn cầu (Unique Event ID / Idempotency Key)} chưa? (Ưu tiên UUID v4 hoặc hash của các trường bất biến, ví dụ \texttt{hash(user\_id + timestamp + order\_id)}.)
+        \item Hệ thống lưu trữ đích (RDBMS / Lakehouse) đã đánh Unique Index trên Idempotency Key chưa?
+        \item Đã có kế hoạch ứng phó cho kịch bản Replay dữ liệu cũ chưa (cân nhắc tác động của TTL)?
+    \end{itemize}
+\end{itemize}
+
+% =============================================================
+\section{Lời kết}
+
+Trong một thế giới phân tán đầy bất định, \textbf{sự cố không phải là khả năng, mà là điều chắc chắn sẽ xảy ra}.
+
+Việc hiểu sâu về ngữ nghĩa giao nhận không phải để mơ tưởng về một đường truyền vật lý hoàn hảo, mà là để trang bị tư duy kiến trúc phòng thủ vững chắc:
+\begin{itemize}
+    \item Lấy \textbf{At-least-once} làm nền tảng truyền tải cốt lõi để bảo toàn 100\% dữ liệu.
+    \item Lấy \textbf{Replayability} của Kafka Log làm chìa khóa cho việc khôi phục thảm họa và phát triển đường ống dữ liệu mới.
+    \item Lấy \textbf{Consumer Idempotency (Deduplication Strategies)} làm tấm lá chắn cuối cùng và tin cậy nhất để bảo vệ tính toàn vẹn của dữ liệu doanh nghiệp.
+\end{itemize}
+
+\end{document}
