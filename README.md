@@ -3,7 +3,7 @@
 | Reading | Outline | Draft | Markdown | LaTeX |
 |---|---|---|---|---|
 | scd2 | yes | yes | yes | yes |
-| data-mart | yes | yes | yes | - |
+| data-mart | yes | yes | yes | yes |
 | kafka-delivery-semantics-and-dedup | yes | - | yes | - |
 | streaming-transformations | yes | yes | yes | - |
 

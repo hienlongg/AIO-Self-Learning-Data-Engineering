@@ -1,4 +1,4 @@
-READINGS := scd2
+READINGS := scd2 data-mart
 .PHONY: all clean $(READINGS)
 all: $(READINGS)
 $(READINGS):
