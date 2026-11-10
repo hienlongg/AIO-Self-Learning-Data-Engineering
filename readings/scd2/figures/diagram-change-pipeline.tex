@@ -1,0 +1,21 @@
+% Hình: pipeline phát hiện thay đổi SCD2
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tikzpicture}[font=\small\sffamily, >=Stealth,
+  pstep/.style={draw=aivnGreen, fill=rowLavender, rounded corners=3pt, minimum height=1.0cm, text width=2.9cm, align=center, inner sep=4pt},
+  pdec/.style={draw=brandIndigo, fill=brandIndigo!12, diamond, aspect=2.3, text width=3.3cm, align=center, inner sep=1pt, font=\footnotesize\sffamily},
+  pout/.style={draw=gray!60, fill=white, rounded corners=3pt, text width=3.6cm, align=center, inner sep=5pt, minimum height=1.5cm},
+  lab/.style={font=\scriptsize\sffamily\bfseries, fill=white, inner sep=1.5pt}]
+  \node[pstep] (stg) {\texttt{stg\_customers}};
+  \node[pstep, right=1.0cm of stg] (hash) {tính \texttt{attr\_hash}\\ {\footnotesize từ các cột theo dõi}};
+  \node[pdec, right=1.0cm of hash] (cmp) {so với hash của dòng \texttt{is\_current = TRUE}};
+  \draw[->, thick] (stg) -- (hash);
+  \draw[->, thick] (hash) -- (cmp);
+  \node[pout, below=2.2cm of cmp] (chg) {\textbf{Đổi}\\ hết hạn dòng cũ\\ + chèn dòng mới};
+  \node[pout, left=0.7cm of chg, fill=gray!8] (same) {\textbf{Không đổi}\\ bỏ qua};
+  \node[pout, right=0.7cm of chg, fill=red!6, draw=red!50!black] (gone) {\textbf{Biến mất khỏi nguồn}\\ chỉ hết hạn, \underline{không} xóa dòng};
+  \draw[->, thick] (cmp.south) -- node[lab, pos=0.5] {hash khác} (chg.north);
+  \draw[->, thick] (cmp.south west) to[out=-120,in=90] node[lab, pos=0.45] {hash giống} (same.north);
+  \draw[->, thick] (cmp.south east) to[out=-60,in=90] node[lab, pos=0.45] {không còn khóa} (gone.north);
+\end{tikzpicture}}
+\end{center}

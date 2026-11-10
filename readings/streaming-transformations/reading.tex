@@ -1,0 +1,1430 @@
+\documentclass[12pt]{article}
+\usepackage{makecell}
+\usepackage{hyphenat}
+\usepackage[utf8]{vietnam}
+\usepackage[vietnamese=nohyphenation]{hyphsubst}
+\usepackage[vietnamese]{babel}
+\usepackage[table,dvipsnames]{xcolor} % Required for row coloring
+\usepackage{booktabs} % Required for nicer horizontal lines
+\usepackage{ragged2e}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage[inline,shortlabels]{enumitem}
+\usepackage{setspace}
+\usepackage{longtable}
+\usepackage{bm} 
+\usepackage[inkscapelatex=false]{svg}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,mathrsfs}
+% \usepackage[draft]{hyperref}
+\usepackage{hyperref}
+\usepackage{xparse}
+\usepackage{fontawesome5}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usepackage[framemethod=TikZ]{mdframed}
+\usetikzlibrary{matrix, fit, shadows, positioning, arrows.meta, calc, shapes.geometric, backgrounds, shapes.symbols}
+\usepackage{paracol}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage{multirow}
+%  biblatex (thay cho IEEEtran.bst) ------------------------------------
+\usepackage[
+    backend=bibtex,
+    style=ieee,
+    citestyle=numeric-comp,
+    maxnames=1,     % chỉ hiển thị 1 tên tác giả, phần còn lại thành ``et al."
+    minnames=1,
+    uniquelist=false,
+    hyperref=false
+]{biblatex}
+\usepackage{forest}
+% \addbibresource{references.bib} % bỏ trống vì tài liệu này chưa dùng citation
+\DefineBibliographyStrings{english}{
+  andothers = {et\addabbrvspace al\adddot}
+}
+\AtBeginBibliography{\selectlanguage{english}}
+
+% -----------------------------------------------------------------
+\AtBeginDocument{\renewcommand\refname{}}
+
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixtocname}{Phụ lục}      
+\renewcommand{\appendixpagename}{Phụ lục}
+
+\usepackage{xurl}
+\setlength{\headheight}{14.5pt}
+\setlength{\topmargin}{-.5in} \setlength{\textheight}{9.25in}
+\setlength{\oddsidemargin}{-0.1in} \setlength{\textwidth}{6.8in}
+
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\Huge\bfseries}
+\setlength{\cftaftertoctitleskip}{2em}
+\setlength{\cftbeforesubsecskip}{7pt} % giãn cách subitem mục lục
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftsecnumwidth}{3em}
+\renewcommand{\cftsecaftersnum}{\quad}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftsubsecnumwidth}{4em}
+\renewcommand{\cftsubsecaftersnum}{\quad}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
+\setlength   {\cftsubsubsecnumwidth}{5em}  
+\renewcommand{\cftsubsubsecaftersnum}{\quad}
+
+\PassOptionsToPackage{vietnamese.licr}{babel}
+\usepackage{../../latex/styles/vipythonhighlight}
+\usepackage{../../latex/styles/tvietlistings}
+\newcounter{mycounter}
+\newcommand\showmycounter{\stepcounter{mycounter}\themycounter}
+\usepackage{lipsum}
+\newcommand\showlips{\stepcounter{mycounter}\lipsum[\value{mycounter}]}
+
+%--------------------------------------------------------------------
+\usepackage{framed}
+\usepackage{fancyhdr}
+\usepackage{upquote}
+\usepackage{listings}	 
+
+\usepackage[toc, nonumberlist, style=super]{glossaries}
+\makenoidxglossaries
+
+\newglossarystyle{clean3col}{%
+    % 1) Table layout: 3 columns
+    \renewenvironment{theglossary}%
+    {%
+      \begin{longtable}{@{}
+        >{\setlength{\parindent}{0pt}\RaggedRight\arraybackslash}p{0.2\linewidth}
+        >{\setlength{\parindent}{0pt}\RaggedRight\arraybackslash}p{0.23\linewidth}
+        >{\setlength{\parindent}{0pt}\RaggedRight\arraybackslash}p{0.52\linewidth}
+      @{}}%
+    }%
+    {\end{longtable}}%
+
+    % 2) Header row
+    \renewcommand{\glossaryheader}{%
+        \bfseries Thuật ngữ &
+        \bfseries Tạm dịch &
+        \bfseries Mô tả \\
+        \midrule
+        \endhead
+    }%
+
+    % 3) Each entry row
+    \renewcommand{\glossentry}[2]{%
+        \itshape \glstarget{##1}{\glossentryname{##1}} &
+        \glsentryuseri{##1} &
+        \glossentrydesc{##1} \\
+        \addlinespace[6pt]
+    }%
+}
+
+
+% Color --------------------------------------------------------------------
+\usepackage{epigraph}
+\usepackage{titlesec}
+
+\definecolor{codebackground}{RGB}{250, 250, 250}
+\definecolor{codecomment}{RGB}{34, 139, 34}
+\definecolor{codekeyword}{RGB}{0, 0, 255}
+\definecolor{codestring}{RGB}{255, 0, 0}
+\definecolor{codeidentifier}{RGB}{0, 0, 0}
+\definecolor{codelinenumbers}{RGB}{90, 90, 90}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\definecolor{aivnGreen}{RGB}{52,79,30}  
+\definecolor{aivnCodeOutputColor}{RGB}{11,83,148}  
+\definecolor{captiongray}{gray}{0.15} 
+\definecolor{captionbg}{RGB}{250,250,250}
+
+\definecolor{foldercolor}{RGB}{0, 102, 204}
+\definecolor{filecolor}{RGB}{104, 104, 104}
+\definecolor{scriptcolor}{RGB}{180, 50, 50}
+\definecolor{pythoncolor}{RGB}{0, 128, 128}
+
+% --- Extra Brand colors for the table ---
+\definecolor{brandIndigo}{HTML}{333D91} 
+\definecolor{rowLavender}{HTML}{EEECFA}
+\setlength{\parskip}{0.3em}
+
+% Table
+\newtcolorbox{captionbelowboxaivn}{
+    colback=aivnGreen,
+    colframe=aivnGreen,
+    boxrule=0pt,
+    arc=4pt,
+    left=4pt,
+    right=4pt,
+    top=2pt,
+    bottom=2pt,
+    width=\linewidth,
+    boxsep=4pt,
+    halign=center,
+    % fontupper=\bfseries\color{white}
+    fontupper=\color{white}
+}
+
+% Figure
+\newtcolorbox{figurecardcaptionaivn}{
+  colback=aivnGreen,        % Màu nền (background color)
+  colframe=aivnGreen,       % Màu viền box (border color)
+  boxrule=0pt,              % Độ dày viền box (0pt = không viền)
+  arc=2pt,                  % Độ bo góc (2pt là bo nhẹ, tăng để bo tròn hơn)
+  top=3pt,                  % Padding phía trên nội dung
+  bottom=3pt,               % Padding phía dưới nội dung
+  left=10pt,                % Padding bên trái
+  right=10pt,               % Padding bên phải
+  width=\linewidth,         % Chiều rộng bằng toàn bộ dòng
+  fontupper=\small\fontsize{11pt}{13pt}\selectfont\color{white} 
+}
+
+% Tạo counter riêng
+\newcounter{hinh}
+% Định nghĩa macro caption Hình
+\newcommand{\capfig}[1]{%
+  \refstepcounter{hinh}%
+  % \textbf{Hình~\thehinh:}~#1
+    Hình~\thehinh:~#1
+}
+
+\newtcolorbox{figurecaptionmodern}{
+  colback=captionbg,
+  colframe=aivnGreen,
+  boxrule=1.5pt,
+  bottomrule=2pt,  
+  toptitle=0pt,
+  bottomtitle=0pt,
+  left=6pt,
+  right=6pt,
+  top=4pt,
+  bottom=2pt,
+  width=\linewidth,
+  fontupper=\small\fontsize{11pt}{13pt}\selectfont\color{black},
+  halign=center
+}
+
+% Code Block -----------------------------------------------------------------
+\newtcolorbox{aivncodebox}[1][]{%
+  enhanced,
+  colback=gray!10,
+  colframe=aivnGreen,
+  coltitle=white,
+  colbacktitle=aivnGreen,
+  title=#1,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  breakable,
+  listing engine=listings,
+  listing options={
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    commentstyle=\color{ForestGreen},
+    keywordstyle=\color{blue},
+    stringstyle=\color{red!70!black},
+    numbers=left, upquote=true,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em
+  }
+}
+
+% Code Output Block -----------------------------------------------------------------
+\newtcolorbox{aivnCodeOutput}[1][]{%
+  enhanced,
+  colback=gray!10,
+  colframe=aivnCodeOutputColor,
+  coltitle=white,
+  colbacktitle=aivnCodeOutputColor,
+  title=#1,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  breakable,
+  listing engine=listings,
+  listing options={
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    commentstyle=\color{ForestGreen},
+    keywordstyle=\color{blue},
+    stringstyle=\color{red!70!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em
+  }
+}
+
+% Last argument allows more tcolorbox options to be added
+
+% --- SQL code box ------------------------------------------------------------
+\lstdefinestyle{sqlstyle}{
+    backgroundcolor=\color{codebackground},
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red!70!black},
+    commentstyle=\color{ForestGreen}\itshape,
+    basicstyle=\ttfamily\footnotesize,
+    columns=fullflexible,
+    keepspaces=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    upquote=true,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em
+}
+
+\newtcblisting{aivnsqlbox}[1][]{%
+  enhanced,
+  colback=gray!10,
+  colframe=aivnGreen,
+  coltitle=white,
+  colbacktitle=aivnGreen,
+  title=#1,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  breakable,
+  listing engine=listings,
+  listing options={language=SQL, style=sqlstyle}
+}
+
+\newtcblisting{aivnpybox}[1][]{%
+  enhanced, colback=gray!10, colframe=aivnGreen, coltitle=white, colbacktitle=aivnGreen,
+  title=#1, fonttitle=\bfseries\sffamily, listing only, breakable, listing engine=listings,
+  listing options={language=Python, style=sqlstyle, keywordstyle=\color{blue}\bfseries}
+}
+
+% --- Plain text / config (YAML, Jinja) code box ------------------------------
+\lstdefinestyle{plainstyle}{
+    backgroundcolor=\color{codebackground},
+    basicstyle=\ttfamily\footnotesize,
+    columns=fullflexible,
+    keepspaces=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    upquote=true,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em
+}
+
+\newtcblisting{aivnplainbox}[1][]{%
+  enhanced,
+  colback=gray!10,
+  colframe=aivnCodeOutputColor,
+  coltitle=white,
+  colbacktitle=aivnCodeOutputColor,
+  title=#1,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  breakable,
+  listing engine=listings,
+  listing options={language={}, style=plainstyle}
+}
+
+% --- Placeholder cho sơ đồ cần vẽ sau ----------------------------------------
+\newcommand{\diagramplaceholder}[2][5.5cm]{%
+  \begin{center}
+  \begin{tcolorbox}[enhanced, breakable,
+      colback=gray!4, colframe=gray!60, boxrule=0.8pt, arc=4pt,
+      width=\linewidth, height=#2, valign=center, halign=center]
+    {\color{gray}\sffamily\faImage\hspace{1em}\textbf{[PLACEHOLDER --- Sơ đồ]}}\\[8pt]
+    {\color{gray}\sffamily\itshape #1}
+  \end{tcolorbox}
+  \end{center}
+}
+
+% --- Guideline/Tip box ---
+\newtcolorbox{guidelinebox}[2][]{
+    enhanced, colback=yellow!10!white, colframe=orange!90!black, boxrule=1pt, arc=4pt,
+    fonttitle=\bfseries, attach boxed title to top left={yshift=-2mm, xshift=3mm},
+    colbacktitle=orange!90!black, coltitle=white,
+    title=\faLightbulb\hspace{1mm} #2, #1
+}
+
+\newtcolorbox{notebox}[1][]{
+  enhanced,  colback=yellow!10, colframe=orange!80, boxrule=1pt, 
+  arc=4pt, fontupper=\small, attach boxed title to top left={yshift=-2mm, xshift=3mm},
+  colbacktitle=orange!80,  coltitle=white, fonttitle=\bfseries,  
+  title=\faInfoCircle~\textbf{Lưu ý},  #1
+}
+
+\newtcolorbox{infobox}[1]{%
+    enhanced, 
+    breakable, 
+    colback=green!3, 
+    colframe=green!3, 
+    arc=5pt,
+    borderline west={3pt}{0pt}{aivnGreen},
+    attach boxed title to top left={ 
+        yshift*=-\tcboxedtitleheight/2, 
+        xshift=-0.1em 
+    },
+    colbacktitle=aivnGreen, %
+    coltitle=white, 
+    fonttitle=\bfseries, 
+    boxed title style={ 
+        arc=4pt, 
+        top=2pt, 
+        bottom=2pt,
+        left=8pt,
+        right=8pt,
+    },
+    title={\faInfoCircle\quad #1}
+}
+\newtcolorbox{examplebox}[1]{%
+    enhanced,
+    breakable,
+    colback=brandIndigo!5,      
+    colframe=brandIndigo!5,     
+    arc=5pt,
+    borderline west={3pt}{0pt}{brandIndigo}, 
+    attach boxed title to top left={
+        yshift*=-\tcboxedtitleheight/2,
+        xshift=-0.1em
+    },
+    colbacktitle=brandIndigo,   
+    coltitle=white,
+    fonttitle=\bfseries,
+    boxed title style={
+        arc=4pt,
+        top=2pt,
+        bottom=2pt,
+        left=8pt,
+        right=8pt,
+    },
+    title={\faLightbulb\quad #1} 
+}
+% Prompt Block ---------------------------------------------------------------
+\definecolor{promptBlue}{HTML}{2F5D8C}
+\definecolor{promptBg}{HTML}{F6F9FC}
+\definecolor{promptBorder}{HTML}{B7C9DC}
+
+% Dùng cho prompt đã viết theo cú pháp LaTeX bình thường
+\newtcolorbox{promptbox}[1][Prompt]{%
+    enhanced,
+    breakable,
+    colback=promptBg,
+    colframe=promptBorder,
+    coltitle=white,
+    colbacktitle=promptBlue,
+    fonttitle=\bfseries\sffamily,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=8pt,
+    right=8pt,
+    top=2pt,
+    bottom=1pt,
+    before skip=8pt,
+    after skip=8pt,
+    borderline west={3pt}{0pt}{promptBlue},
+    fontupper=\small\sffamily,
+}
+
+% Dùng cho prompt raw: giữ nguyên xuống dòng, không highlight keyword
+\newtcblisting{promptboxraw}[1][Prompt]{%
+    enhanced,
+    breakable,
+    listing only,
+    listing engine=listings,
+    colback=promptBg,
+    colframe=promptBorder,
+    coltitle=white,
+    colbacktitle=promptBlue,
+    fonttitle=\bfseries\sffamily,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=8pt,
+    right=8pt,
+    top=-4pt,
+    bottom=-4pt,
+    before skip=4pt,
+    after skip=4pt,
+    borderline west={3pt}{0pt}{promptBlue},
+    listing options={
+        language={},
+        basicstyle=\small\ttfamily,
+        columns=fullflexible,
+        keepspaces=true,
+        breaklines=true,
+        showstringspaces=false,
+        numbers=none,
+        frame=none,
+        keywordstyle=\color{black},
+        commentstyle=\color{black},
+        stringstyle=\color{black},
+        identifierstyle=\color{black}
+    }
+}
+
+
+%--------------------------------------------------------------------
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebackground},
+    commentstyle=\color{codecomment},
+    keywordstyle=\color{codekeyword},
+    stringstyle=\color{codestring},
+    identifierstyle=\color{codeidentifier},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numberstyle=\tiny\color{codelinenumbers}, 
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,    
+    citecolor=green,
+    urlcolor=blue,
+    pdftitle={Tài liệu đọc: Biến đổi Dữ liệu Luồng với Spark Structured Streaming},
+    pdfpagemode=FullScreen,
+}
+
+%--------------------------------------------------------------------
+\newcounter{choice}
+\renewcommand\thechoice{($\alph{choice}$)}
+\newcommand\choicelabel{\thechoice}
+
+%--------------------------------------------------------------------
+\newenvironment{choices}%
+  {\list{\choicelabel}%
+     {\usecounter{choice}\def\makelabel##1{\hss\llap{##1}}%
+       \settowidth{\leftmargin}{W.\hskip\labelsep\hskip 0 em}%
+       \def\choice{%
+         \item
+       } % choice
+       \labelwidth\leftmargin\advance\labelwidth-\labelsep
+       \topsep=0pt
+       \partopsep=0pt
+     }%
+  }%
+  {\endlist}
+  
+%--------------------------------------------------------------------
+\def\CChoice{%
+      \choice
+      \addanswer{\theenumi}{\thechoice}%
+    }
+    \let\CChoice\CChoice
+%    \par % Uncomment this to have choices always start a new line
+   % \let\par\@empty
+    % If we're continuing the textbf containing the question,
+    % then leave a bit of space before the first choice:
+    \ifvmode\else\enskip\fi
+    \ignorespaces
+  %
+  {}
+\makeatother
+\newbox\allanswers
+\setbox\allanswers=\hbox{}
+\newcommand{\addanswer}[2]{%
+  \global\setbox\allanswers=\hbox{\unhbox\allanswers \quad #1.~#2}%
+}
+\newcommand{\showanswers}{%
+  \vfill
+  \begin{center}
+    Answers
+  \end{center}
+  \unhbox\allanswers
+}
+
+\makeatletter
+\newenvironment{multichoices}[1][1]{%
+\begin{multicols}{#1}}{%
+\end{multicols}}
+\makeatother
+
+\pagestyle{fancy}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\E}{\mathbb{E}}
+
+% Outline --------------------------------------------------------------------
+% Section numbering ----------------------------------------------------------
+\renewcommand{\thesection}{\Roman{section}.} 
+\renewcommand{\thesubsection}{\thesection\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\thesubsection\arabic{subsubsection}.}
+
+% Paper-like section title sizes --------------------------------------------
+% Title paper: 17pt
+% Section should be clearly smaller than title but still prominent.
+\titleformat{\section}
+  {\normalfont\fontsize{16pt}{20pt}\selectfont\bfseries}
+  {\thesection}
+  {0.85em}
+  {}
+
+\titleformat{\subsection}
+  {\normalfont\fontsize{14pt}{16pt}\selectfont\bfseries}
+  {\thesubsection}
+  {0.75em}
+  {}
+
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{12pt}{15pt}\selectfont\bfseries}
+  {\thesubsubsection}
+  {0.65em}
+  {}
+
+% Paper-like compact spacing -------------------------------------------------
+\titlespacing*{\section}
+  {0pt}
+  {1.25em plus 0.2em minus 0.1em}
+  {0.65em plus 0.1em minus 0.1em}
+
+\titlespacing*{\subsection}
+  {0pt}
+  {1.0em plus 0.2em minus 0.1em}
+  {0.45em plus 0.1em minus 0.1em}
+
+\titlespacing*{\subsubsection}
+  {0pt}
+  {0.85em plus 0.15em minus 0.1em}
+  {0.35em plus 0.1em minus 0.1em}
+
+
+% Logo + Title ---------------------------------------------------------------
+
+\setlength{\droptitle}{-7em}
+
+% Title horizontal rule
+\newcommand{\TitleRule}{%
+  \rule{0.90\textwidth}{0.6pt}
+}
+
+% Chiều cao vùng title giữa 2 rule
+\newlength{\TitleBlockHeight}
+\setlength{\TitleBlockHeight}{2.6cm}
+
+\pretitle{%
+  
+
+  % Logo row
+  \begin{tabular}{@{}c@{\hspace{1.0em}}c@{\hspace{1.0em}}c@{}}
+    \raisebox{-0.35\height}{\includegraphics[height=2.0cm]{../../shared/figures/aio2026_logo.pdf}}    
+  \end{tabular}
+
+  %\vspace{0.2em}
+
+\begin{center}
+  \TitleRule
+  \par\nointerlineskip
+}
+
+\title{%
+  \parbox[c][\TitleBlockHeight][c]{0.90\textwidth}{%
+    \centering
+    {\fontsize{17pt}{21pt}\selectfont\bfseries Tài liệu đọc: Biến đổi Dữ liệu Luồng (Streaming Transformations)\\[3pt]
+     \fontsize{13pt}{16pt}\selectfont Từ Kafka Ingestion đến Lakehouse Sinks với Spark Structured Streaming}
+  }%
+}
+
+\posttitle{%
+  \par\nointerlineskip
+  \TitleRule
+  \end{center}
+}
+
+\preauthor{%
+  \begin{center}
+  \fontsize{11pt}{13pt}\selectfont
+}
+
+\author{%
+  \textbf{Trương Hiển Long}
+  \hspace{2.8em}
+  \textbf{Vũ Hoàng Tuệ Anh}
+}
+
+\postauthor{%
+  \par
+  \end{center}
+}
+
+\date{}
+% Header --------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\href{https://www.facebook.com/aivietnam.edu.vn}{\textcolor{aivnGreen}{\bfseries AI VIET NAM (AIO2026)}}}
+\rhead{\href{https://aivietnam.edu.vn/}{\textcolor{aivnGreen}{\bfseries aivietnam.edu.vn}}}
+\fancyfoot[r]{\textcolor{aivnGreen}{\bfseries Trang \thepage}}
+\fancyfoot[l]{%
+  \href{https://zalo.me/84911118758}{%
+    \textcolor{aivnGreen}{\bfseries SĐT/Zalo: 0911118758 (Dr. Hồng Phúc)}%
+  }%
+}
+\renewcommand{\headrulewidth}{1.0pt}
+\renewcommand{\headrule}{{\color{aivnGreen}\hrule width\headwidth height\headrulewidth \vskip-\headrulewidth}}
+
+\renewcommand{\footrulewidth}{1.0pt}
+\renewcommand{\footrule}{{\color{aivnGreen}\hrule width\headwidth height\footrulewidth \vskip-\footrulewidth}}
+
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyfoot[r]{\textcolor{aivnGreen}{\bfseries Trang \thepage}}
+    \fancyfoot[l]{%
+      \href{https://zalo.me/84911118758}{%
+        \textcolor{aivnGreen}{\bfseries SĐT/Zalo: 0911118758 (Dr. Hồng Phúc)}%
+      }%
+    }
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{1.0pt}
+    \renewcommand{\footrule}{%
+        {\color{aivnGreen}\hrule width\headwidth height\footrulewidth}
+    }
+}
+
+
+
+\begin{document}
+\maketitle
+\thispagestyle{firstpage}
+\vspace{-3em}
+
+
+% =============================================================
+\section{Lời mở đầu}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/Streaming Transformations Pipeline.png}
+  \caption{Sơ đồ luồng dữ liệu từ Kafka Ingestion đến Lakehouse Sinks, minh họa các biến đổi luồng (Streaming Transformations) trong Spark Structured Streaming.}
+  \label{fig:streaming-transformations-pipeline}
+\end{figure}
+
+Hãy hình dung một kịch bản thực tế trong một hệ thống thương mại điện tử hoặc fintech quy mô lớn:
+
+\begin{examplebox}{Tình huống: Siêu Sale 11/11}
+\textit{11:59:50 trưa ngày Siêu Sale 11/11, hàng triệu người dùng đồng loạt nhấn nút ``Đặt hàng''. Các sự kiện click chuột (\texttt{ad\_clicks}), giao dịch thanh toán (\texttt{payments}) và cập nhật trạng thái đơn hàng (\texttt{order\_status}) đổ về hệ thống hàng trăm nghìn sự kiện mỗi giây thông qua Apache Kafka.}
+
+\medskip
+\textit{Bộ phận Quản trị Rủi ro đặt ra yêu cầu: ``Cần phát hiện ngay lập tức các giao dịch có dấu hiệu gian lận --- ví dụ một tài khoản phát sinh thanh toán ở hai quốc gia khác nhau trong vòng 5 phút, hoặc một giao dịch thanh toán thành công nhưng không gắn với bất kỳ sự kiện xem trang (ad click) nào trước đó trong vòng 10 phút.''}
+\end{examplebox}
+
+Nếu xử lý bài toán này theo mô hình Batch truyền thống (chờ gom đủ 1 giờ rồi chạy Spark job), khi phát hiện ra gian lận thì kẻ xấu đã kịp rút sạch tiền khỏi tài khoản. Nhưng nếu chuyển sang xử lý thời gian thực (Real-time Stream Processing), bạn sẽ đối mặt với hàng loạt cạm bẫy:
+
+\begin{itemize}
+    \item \textbf{Độ trễ và dữ liệu đến muộn (Late Data)}: thiết bị di động mất sóng 4G trong thang máy, sự kiện click phát sinh lúc 11:55 nhưng mãi đến 12:15 mới lên Kafka. Hệ thống biết khi nào nên chờ và khi nào nên ``bỏ cuộc'' để không tốn bộ nhớ vô hạn bằng cách nào?
+    \item \textbf{Tràn bộ nhớ máy chủ (JVM Out of Memory)}: một phép khử trùng lặp (\texttt{dropDuplicates}) hoặc Stream-Stream Join chạy được 3 ngày thì sụp đổ vì State Store phình to hàng trăm GB.
+    \item \textbf{Sai lệch dữ liệu lịch sử (Stale Cache)}: làm giàu đơn hàng với bảng khách hàng, nhưng khách vừa nâng hạng VIP mà luồng dữ liệu vẫn hiển thị hạng Thường suốt nhiều ngày.
+    \item \textbf{Nhân bản dữ liệu khi gặp sự cố (Duplicates on Retries)}: khi một node crash và khởi động lại, các bản ghi trong micro-batch đó có bị ghi hai lần vào Data Lake hay không?
+\end{itemize}
+
+Tài liệu này được biên soạn dựa trên bản phác thảo \texttt{draft.md}, đóng vai trò cẩm nang giúp bạn nắm vững:
+\begin{enumerate}
+    \item Bản chất của xử lý luồng, sự khác biệt giữa biến đổi \textbf{không lưu trạng thái (Stateless)} và \textbf{có lưu trạng thái (Stateful)}.
+    \item Cơ chế kiểm soát bộ nhớ qua \textbf{Watermark} và kỹ thuật ghép nối luồng với luồng (\textbf{Stream-Stream Joins}).
+    \item Các kỹ thuật ghi đầu ra (\textbf{Sinks}), chống trùng lặp với \texttt{foreachBatch} và \textbf{Idempotent Upsert (ACID MERGE)} trên Lakehouse.
+    \item Cơ chế tự phục hồi trước dữ liệu hỏng qua \textbf{Dead-Letter Queue (DLQ)} và quản trị \textbf{Schema Evolution}.
+\end{enumerate}
+
+% =============================================================
+\section{Outline của tài liệu}
+
+\noindent
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{3.4cm}>{\RaggedRight\arraybackslash}p{8.2cm}>{\RaggedRight\arraybackslash}p{4.0cm}@{}}
+\rowcolor{rowLavender}
+\textbf{Phần} & \textbf{Nội dung} & \textbf{Vấn đề cốt lõi} \\
+\addlinespace[3pt]
+\endhead
+
+\textbf{1. Nền tảng xử lý luồng}
+& Dữ liệu hữu hạn vs. vô hạn, ba trục thời gian (Event/Ingestion/Processing Time).
+& Vì sao Event Time làm bài toán phức tạp \\
+\addlinespace[6pt]
+
+\textbf{2. Giải phẫu kiến trúc}
+& Kafka ingestion, Write-Ahead Log và Checkpoint, phân biệt Stateless/Stateful.
+& Chịu lỗi và trạng thái \\
+\addlinespace[6pt]
+
+\textbf{3. Bốn trụ cột biến đổi}
+& Filtering và Deduplication, Stream-Static Join (Enrichment), Stream-Stream Join.
+& Watermark và bộ nhớ \\
+\addlinespace[6pt]
+
+\textbf{4. Sink và Exactly-Once}
+& Output Modes, \texttt{foreachBatch}, Delta Lake \texttt{MERGE}.
+& Ghi idempotent \\
+\addlinespace[6pt]
+
+\textbf{5. Schema Evolution và DLQ}
+& \texttt{from\_json}, \texttt{columnNameOfCorruptRecord}, Dead-Letter Queue.
+& Dữ liệu hỏng (Poison Pill) \\
+\addlinespace[6pt]
+
+\textbf{6. Vận hành thực tế}
+& State Store OOM, RocksDB, shuffle partitions, backpressure.
+& Chạy ổn định 24/7 \\
+\addlinespace[6pt]
+
+\textbf{7. Tổng kết}
+& Ma trận quyết định Spark/Flink/Kafka Streams, cheat-sheet, câu hỏi phỏng vấn.
+& Chọn công cụ và ôn tập \\
+\end{longtable}
+
+\begin{captionbelowboxaivn}
+Bảng 1: Outline 7 phần của tài liệu ``Biến đổi Dữ liệu Luồng''.
+\end{captionbelowboxaivn}
+
+% =============================================================
+\section{Nền tảng xử lý luồng (Streaming Paradigms)}
+
+\subsection{Tập dữ liệu hữu hạn (Bounded) và vô hạn (Unbounded)}
+
+Trong Batch Processing, dữ liệu là một tập hợp \textbf{đã đóng gói hoàn chỉnh} (Bounded Dataset). Khi chạy truy vấn trên phân vùng \texttt{date = '2026-03-20'}, bạn biết chắc không có dòng nào của ngày đó tự nhiên xuất hiện thêm trong lúc tính toán. Ngược lại, thế giới thực hoạt động theo nguyên lý \textbf{Unbounded Dataset}: người dùng liên tục click, cảm biến IoT liên tục gửi tín hiệu, máy chủ tài chính liên tục ghi nhận giao dịch --- dòng dữ liệu không có điểm kết thúc.
+
+\noindent
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{3.4cm}>{\RaggedRight\arraybackslash}p{6.0cm}>{\RaggedRight\arraybackslash}p{6.2cm}@{}}
+\rowcolor{rowLavender}
+\textbf{Tiêu chí} & \textbf{Batch (Bounded)} & \textbf{Streaming (Unbounded)} \\
+\addlinespace[3pt]
+\endhead
+Tập dữ liệu & Hữu hạn (chốt kỳ) & Vô hạn (bất tận) \\
+\addlinespace[3pt]
+Cách xử lý & Theo lô định kỳ (giờ/ngày) & Tức thời / micro-batch nhỏ \\
+\addlinespace[3pt]
+Khi gặp lỗi & Chạy lại toàn bộ lô & Khôi phục từ checkpoint \\
+\addlinespace[3pt]
+Thách thức & Thời gian thực thi tĩnh & Độ trễ và dữ liệu mất trật tự \\
+\end{longtable}
+
+\begin{captionbelowboxaivn}
+Bảng 2: So sánh Batch và Streaming.
+\end{captionbelowboxaivn}
+
+Nhiệm vụ của \textbf{Kỹ sư Dữ liệu Thời gian thực} là thiết kế một hệ sinh thái tính toán có khả năng nuốt liên tục các sự kiện với throughput cao, duy trì tính nhất quán ngay cả khi mạng hay máy chủ sập đột ngột, và trả lời được câu hỏi kinh điển: \textit{``Dữ liệu này được xử lý theo thời gian nào?''}
+
+\subsection{Ba trục thời gian trong xử lý dòng (Time Semantics)}
+
+Một sai lầm phổ biến của kỹ sư mới là dùng thời gian của máy chủ chạy code (\texttt{System.currentTimeMillis()}) để tính toán nghiệp vụ. Trong hệ thống phân tán có ba mốc thời gian hoàn toàn tách biệt:
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2.2cm, every node/.style={font=\small},
+  box/.style={draw=aivnGreen, thick, rounded corners, fill=green!5, minimum width=3.6cm, minimum height=1.1cm, align=center},
+  arr/.style={-{Stealth[length=3mm]}, thick, aivnGreen}]
+  \node[box] (a) {Sự kiện xảy ra\\ \textbf{10:00:00}\\ (Event Time)};
+  \node[box, right=of a] (b) {Đến Kafka Broker\\ \textbf{10:02:15}\\ (Ingestion Time)};
+  \node[box, right=of b] (c) {Executor tính toán\\ \textbf{10:05:00}\\ (Processing Time)};
+  \draw[arr] (a) -- (b);
+  \draw[arr] (b) -- (c);
+\end{tikzpicture}
+\caption{Ba mốc thời gian của một sự kiện trong hệ thống phân tán.}
+\label{fig:three-times}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Event Time}: thời điểm hành động thực sự diễn ra tại nguồn (nằm trong payload, ví dụ \texttt{click\_timestamp}). Đây là mốc mang \textbf{giá trị nghiệp vụ duy nhất đúng}.
+    \item \textbf{Ingestion Time}: thời điểm message được lưu vào partition của Kafka broker.
+    \item \textbf{Processing Time}: thời điểm Spark Executor thực sự đọc và xử lý bản ghi.
+\end{enumerate}
+
+\begin{infobox}{Vì sao Event Time làm bài toán phức tạp?}
+Do độ trễ mạng, thiết bị mất kết nối hoặc backpressure, sự kiện không bao giờ đến theo đúng thứ tự thời gian. Sự kiện xảy ra lúc \texttt{10:00:00} có thể đến Kafka muộn hơn sự kiện lúc \texttt{10:04:00}: đó là \textbf{Out-of-order data} và \textbf{Late-arriving data}. Mọi biến đổi có ý nghĩa nghiệp vụ (doanh thu theo khung giờ, ghép cặp đơn hàng) bắt buộc dựa trên Event Time, và hệ thống cần cơ chế trả lời \textit{``đợi dữ liệu muộn trong bao lâu?''} --- đó là lý do \textbf{Watermark} ra đời.
+\end{infobox}
+
+% =============================================================
+\section{Giải phẫu kiến trúc: Ingestion, State Store và chịu lỗi}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=aivnGreen, thick, rounded corners, fill=green!5, minimum height=1.2cm, align=center},
+  arr/.style={-{Stealth[length=3mm]}, thick, aivnGreen}]
+  \node[box, minimum width=2.2cm] (k) {Kafka\\ topic};
+  \node[box, minimum width=6.2cm, right=1.4cm of k] (s) {Spark Structured Streaming\\ Engine (Micro-batch / WAL)};
+  \node[box, minimum width=2.2cm, right=1.4cm of s] (o) {Storage\\ sink};
+  \draw[arr] (k) -- (s);
+  \draw[arr] (s) -- (o);
+  \node[below=2pt of s, font=\footnotesize\itshape] {transformations};
+\end{tikzpicture}
+\caption{Mô hình tổng quan Kafka $\rightarrow$ Spark $\rightarrow$ Sink.}
+\label{fig:overview}
+\end{figure}
+
+\subsection{Apache Kafka --- Tầng Ingestion}
+
+Kafka là một \textbf{Append-Only Distributed Log}; mỗi topic chia thành nhiều \textbf{Partition}.
+
+\begin{aivnpybox}[Đọc stream từ Kafka]
+df = spark.readStream \
+    .format("kafka") \
+    .option("kafka.bootstrap.servers", "broker1:9092") \
+    .option("subscribe", "events") \
+    .load()
+\end{aivnpybox}
+
+Spark không hoạt động như một Kafka Consumer thông thường với consumer group quản lý offset trên broker. Thay vào đó, \textbf{Spark Driver trực tiếp thăm dò (poll) metadata của Kafka}, xác định offset mới nhất trên từng partition, rồi phân bổ các dải offset cho Executor đọc song song.
+
+\begin{notebox}
+Số partition của Kafka topic quyết định mức song song hóa tối đa ở tầng đọc của Spark.
+\end{notebox}
+
+\medskip
+DataFrame \texttt{df} trả về có cấu trúc cố định gồm các cột: \texttt{key} (binary), \texttt{value} (binary, toàn bộ payload), \texttt{topic}, \texttt{partition}, \texttt{offset}, và \texttt{timestamp} (Ingestion Time hoặc do client gán). Vì \texttt{value} là mảng byte, ta phải ép kiểu và giải mã:
+
+\begin{aivnpybox}[Giải mã payload JSON]
+events = df.select(
+    F.from_json(F.col("value").cast("string"), event_schema).alias("e"),
+    F.col("timestamp")
+).select("e.*", "timestamp")
+\end{aivnpybox}
+
+\begin{enumerate}
+    \item \texttt{cast("string")} chuyển mảng byte thành chuỗi JSON.
+    \item \texttt{from\_json(..., event\_schema)} đối chiếu chuỗi JSON với \texttt{StructType} định nghĩa trước để tạo struct có kiểu rõ ràng.
+    \item \texttt{select("e.*", "timestamp")} làm phẳng struct thành các cột riêng.
+\end{enumerate}
+
+\subsection{Chịu lỗi: Write-Ahead Log và Checkpoint}
+
+Câu hỏi sống còn: \textit{nếu máy chủ mất điện giữa chừng, làm sao khởi động lại mà không mất hoặc tính trùng dữ liệu?} Câu trả lời nằm ở tùy chọn bắt buộc:
+
+\begin{aivnpybox}[Checkpoint]
+.option("checkpointLocation", "/mnt/checkpoints/events")
+\end{aivnpybox}
+
+Thư mục checkpoint trên storage bền vững (S3 / HDFS / ADLS) gồm ba thành phần:
+
+\begin{enumerate}
+    \item \texttt{offsets/}: ghi chính xác dải offset (từ $A$ đến $B$ trên từng partition) mà micro-batch hiện tại được giao đọc.
+    \item \texttt{commits/}: file metadata xác nhận micro-batch $N$ đã xử lý và ghi sink xong. Nếu Spark sập trước khi file này được tạo, khi khởi động lại Spark đọc lại đúng dải offset của batch $N$ để tính lại.
+    \item \texttt{state/}: nơi lưu trạng thái trung gian của các phép biến đổi stateful để phục hồi bộ nhớ.
+\end{enumerate}
+
+\subsection{Stateless vs. Stateful Transformations}
+
+Đây là ranh giới kỹ thuật quan trọng nhất của toàn tài liệu:
+
+\noindent
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{2.8cm}>{\RaggedRight\arraybackslash}p{6.4cm}>{\RaggedRight\arraybackslash}p{6.4cm}@{}}
+\rowcolor{rowLavender}
+\textbf{Đặc tính} & \textbf{Stateless} & \textbf{Stateful} \\
+\addlinespace[3pt]
+\endhead
+Định nghĩa & Đầu ra của dòng $i$ chỉ phụ thuộc dữ liệu của chính dòng $i$. & Đầu ra phụ thuộc dòng hiện tại \textbf{và} các dòng trong quá khứ. \\
+\addlinespace[3pt]
+Ví dụ & \texttt{filter()}, \texttt{select()}, \texttt{withColumn()}, \texttt{map()} & \texttt{dropDuplicates()}, \texttt{groupBy().count()}, Stream-Stream Join \\
+\addlinespace[3pt]
+Bộ nhớ & \textbf{Bằng 0}: xử lý xong dòng nào giải phóng ngay dòng đó. & \textbf{Tích lũy theo thời gian}: cần State Store lưu lịch sử. \\
+\addlinespace[3pt]
+Mở rộng & Gần như vô hạn, tăng core là scale. & Bị giới hạn bởi kích thước State Store và chi phí I/O đồng bộ. \\
+\addlinespace[3pt]
+Sự cố thường gặp & Hầu như không gây sập bộ nhớ nếu micro-batch hợp lý. & Dễ \textbf{OOM} nếu không kiểm soát việc giải phóng trạng thái (State Eviction). \\
+\end{longtable}
+
+\begin{captionbelowboxaivn}
+Bảng 3: Stateless và Stateful Transformations.
+\end{captionbelowboxaivn}
+
+% =============================================================
+\section{Bốn trụ cột biến đổi qua mã nguồn \texttt{draft.md}}
+
+\subsection{Trụ cột 1: Lọc (Filtering) và Khử trùng lặp (Deduplication)}
+
+\subsubsection{Lọc vô hướng (Stateless)}
+
+\begin{aivnpybox}[Lọc giao dịch giá trị cao]
+# Keep only high-value transactions
+stream = events.filter(
+    (F.col("amount") > 1000) &
+    (F.col("country").isin("US", "DE", "JP")) &
+    F.col("event_type").isNotNull()
+)
+\end{aivnpybox}
+
+Đây là row-level predicate thuần túy. Catalyst Optimizer có thể đẩy (pushdown) các biểu thức lọc xuống phân vùng thực thi mà không tốn thêm RAM giữa các micro-batch, nên bạn có thể nối hàng chục bộ lọc mà không lo suy giảm hiệu năng bộ nhớ.
+
+\subsubsection{Khử trùng lặp (Stateful)}
+
+\begin{aivnpybox}[dropDuplicates kèm Watermark]
+# Khử trùng lặp theo event_id
+deduped_stream = events.withWatermark("timestamp", "1 hour") \
+                       .dropDuplicates(["event_id", "timestamp"])
+\end{aivnpybox}
+
+Khi gọi \texttt{dropDuplicates(["event\_id"])}, Spark phải lưu mọi \texttt{event\_id} đã thấy vào \textbf{State Store}. Với 100 triệu sự kiện mỗi ngày, sau 10 ngày State Store chứa 1 tỷ khóa; heap JVM cạn kiệt, GC tê liệt và executor sập.
+
+\begin{guidelinebox}{Quy tắc bắt buộc}
+Trong production, \texttt{dropDuplicates} \textbf{phải đi kèm \texttt{withWatermark}} và \textbf{đưa cột thời gian sự kiện vào khóa khử trùng lặp}. Khi đó Spark tự động dọn (evict) các \texttt{event\_id} cũ hơn ngưỡng watermark khỏi bộ nhớ.
+\end{guidelinebox}
+
+\subsection{Trụ cột 2: Làm giàu dữ liệu (Stream-Static Join)}
+
+Stream sự kiện thường chỉ chứa định danh trần (ví dụ \texttt{customer\_id: "C123"}). Để có bảng phân tích có nghĩa, ta ``làm giàu'' với thông tin khách hàng (\texttt{name}, \texttt{email}, \texttt{segment}).
+
+\begin{aivnpybox}[Broadcast join với bảng tĩnh]
+# Load reference data as a batch DataFrame
+customers = spark.read.parquet("/data/customers")  # broadcast if small
+
+enriched = events.join(
+    F.broadcast(customers),
+    "customer_id",
+    "left"
+)
+\end{aivnpybox}
+
+Bảng \texttt{customers} nhỏ (khoảng 50MB) được Driver đọc rồi sao chép (broadcast) đến \textbf{tất cả Executor}; stream được join trực tiếp trong RAM, không cần shuffle qua mạng.
+
+\subsubsection{Lỗi 1: Dữ liệu tĩnh bị đóng băng (Stale Cache Bug)}
+
+\begin{itemize}
+    \item \textbf{Hiện tượng}: khách hàng mới đăng ký lúc 14:00 và đã có trong bảng \texttt{customers}, nhưng đơn hàng lúc 14:05 trong luồng \texttt{enriched} vẫn có thông tin khách hàng là \texttt{NULL}.
+    \item \textbf{Nguyên nhân}: lệnh \texttt{spark.read.parquet(...)} chỉ chạy \textbf{một lần khi query khởi động}. Driver giữ nguyên snapshot đó suốt nhiều tuần, query hoàn toàn ``mù'' trước thay đổi mới.
+    \item \textbf{Giải pháp}:
+    \begin{enumerate}
+        \item \textit{Khởi động lại định kỳ}: restart query mỗi đêm, phù hợp khi danh mục chỉ cập nhật theo ngày.
+        \item \textit{Đọc lại trong \texttt{foreachBatch}}: đưa thao tác đọc bảng tĩnh vào hàm xử lý từng micro-batch (xem Phần \ref{sec:sink}).
+        \item \textit{Tra cứu cache ngoài}: với hot dimension cần cập nhật tức thì, point-lookup qua Redis hoặc Cassandra.
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Lỗi 2: Bùng nổ dòng dữ liệu (Fan-Out Explosion)}
+
+Nếu \texttt{customer\_id = 'C123'} xuất hiện 3 dòng trong bảng \texttt{customers} (do trùng lặp ở nguồn), mỗi giao dịch của khách này qua \texttt{LEFT JOIN} sẽ bị nhân thành 3 dòng giống hệt nhau.
+
+\begin{notebox}
+Luôn khử trùng lặp tuyệt đối bảng tham chiếu tĩnh trên khóa join trước khi đưa vào biểu thức làm giàu.
+\end{notebox}
+
+\subsection{Trụ cột 3: Ghép nối luồng với luồng (Stream-Stream Join)}
+
+Đây là đỉnh cao của độ phức tạp: cả hai vế của phép nối đều là dòng dữ liệu liên tục.
+
+\begin{aivnpybox}[Stream-Stream leftOuter join]
+left = leftStream.withWatermark("left_ts", "2 hours")
+right = rightStream.withWatermark("right_ts", "2 hours")
+
+joined = left.join(
+    right,
+    expr("""
+        click_id = view_id AND
+        right_ts >= left_ts - INTERVAL 10 MINUTES AND
+        right_ts <= left_ts + INTERVAL 10 MINUTES
+    """),
+    "leftOuter"
+)
+\end{aivnpybox}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=aivnGreen, thick, rounded corners, fill=green!5, minimum height=0.9cm, align=center},
+  arr/.style={-{Stealth[length=3mm]}, thick, aivnGreen}]
+  \node[box, minimum width=4cm] (l) {Stream Left (Clicks)};
+  \node[box, minimum width=4cm, right=3cm of l] (r) {Stream Right (Views)};
+  \node[box, minimum width=4cm, below=0.9cm of l] (a) {State Store Buffer A};
+  \node[box, minimum width=4cm, below=0.9cm of r] (b) {State Store Buffer B};
+  \node[box, minimum width=7cm, fill=brandIndigo!8, draw=brandIndigo, below=1.1cm of $(a)!0.5!(b)$, align=center] (m) {Khớp \texttt{click\_id = view\_id}\\ và trong khoảng $[-10m, +10m]$};
+  \node[box, minimum width=3.5cm, below=0.9cm of m] (j) {Joined Stream};
+  \draw[arr] (l) -- (a);
+  \draw[arr] (r) -- (b);
+  \draw[arr] (a) -- (m);
+  \draw[arr] (b) -- (m);
+  \draw[arr] (m) -- (j);
+\end{tikzpicture}
+\caption{Hai bộ đệm trạng thái của Stream-Stream Join.}
+\label{fig:ss-join}
+\end{figure}
+
+\subsubsection{Vì sao cần bộ đệm kép (Dual Buffer)?}
+
+Khi một click xuất hiện ở \texttt{leftStream}, lượt xem tương ứng ở \texttt{rightStream} có thể chưa tới (hoặc đã tới từ 5 phút trước). Spark phải đưa click vào \textbf{Buffer A} và chờ; ngược lại, lượt xem mới vào \textbf{Buffer B}. Với mỗi sự kiện mới ở một bên, Spark quét bộ đệm bên kia để tìm bản ghi khớp.
+
+\subsubsection{Điều kiện khoảng thời gian (Interval Constraint)}
+
+Người dùng click quảng cáo sẽ mua hoặc xem chi tiết trong vài phút đến vài giờ sau đó, không thể 3 năm sau mới ``khớp'' lại phiên này. Biểu thức
+
+\begin{aivnsqlbox}[Interval constraint]
+right_ts >= left_ts - INTERVAL 10 MINUTES AND right_ts <= left_ts + INTERVAL 10 MINUTES
+\end{aivnsqlbox}
+
+thiết lập \textbf{ranh giới thời gian hữu hạn} cho phép nối: sự kiện bên phải chỉ khớp bên trái nếu độ lệch không vượt quá 10 phút.
+
+\subsubsection{Vai trò tối thượng của Watermark trong Outer Join}
+
+Với \texttt{leftOuter} (giữ mọi click kể cả khi không có lượt xem), làm sao Spark biết một click \textbf{chắc chắn không bao giờ} có lượt xem trong tương lai để phát dòng với các cột bên phải là \texttt{NULL}? Nếu không có Watermark, Spark phải chờ vĩnh viễn và bản ghi click nằm trong RAM mãi mãi.
+
+\begin{infobox}{Nguyên lý Watermark}
+Khi Watermark của \texttt{rightStream} vượt qua mốc \texttt{left\_ts + 10 MINUTES}, Spark kết luận: \textit{``hạn chót đã hết, dữ liệu bên phải quá hạn sẽ bị loại bỏ, click này sẽ không bao giờ tìm thấy bạn đồng hành nữa''}. Lúc đó Spark mới phát dòng \texttt{leftOuter} với cột bên phải \texttt{NULL} và \textbf{xóa vĩnh viễn bản ghi click khỏi State Store}.
+\end{infobox}
+
+% =============================================================
+\section{Sink Patterns, Output Modes và Exactly-Once}
+\label{sec:sink}
+
+\subsection{Các chế độ xuất (Output Modes)}
+
+\noindent
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{2.2cm}>{\RaggedRight\arraybackslash}p{4.6cm}>{\RaggedRight\arraybackslash}p{4.4cm}>{\RaggedRight\arraybackslash}p{4.4cm}@{}}
+\rowcolor{rowLavender}
+\textbf{Mode} & \textbf{Cơ chế} & \textbf{Phù hợp nhất cho} & \textbf{Điều kiện / Cảnh báo} \\
+\addlinespace[3pt]
+\endhead
+\texttt{append} & Chỉ xuất các dòng mới đã chốt và đảm bảo không bị sửa đổi sau đó. & Log bất biến; sự kiện đã làm giàu ghi vào Data Lake. & Không dùng cho Aggregation nếu không có Watermark. \\
+\addlinespace[3pt]
+\texttt{update} & Chỉ xuất các dòng thay đổi (mới hoặc giá trị tổng đổi) trong micro-batch. & Đồng bộ chỉ số sang Key-Value DB (Redis, Cassandra). & Cho phép xuất kết quả trung gian trước khi watermark đóng. \\
+\addlinespace[3pt]
+\texttt{complete} & Ghi lại toàn bộ bảng kết quả ở mỗi micro-batch. & Bảng tổng hợp nhỏ (top 10 sản phẩm). & \textbf{Không dùng cho dữ liệu lớn}: bùng nổ I/O ghi đĩa. \\
+\end{longtable}
+
+\begin{captionbelowboxaivn}
+Bảng 4: Ba chế độ xuất của Spark Structured Streaming.
+\end{captionbelowboxaivn}
+
+\subsection{``Cửa thoát hiểm'' \texttt{foreachBatch}}
+
+Dù Spark có sẵn connector (\texttt{format("delta")}, \texttt{"parquet"}, \texttt{"kafka"}), hầu hết pipeline production dùng \textbf{\texttt{foreachBatch}}.
+
+\begin{aivnpybox}[foreachBatch]
+def upsertToLake(batch_df, batch_id):
+    # batch_df tại đây là một BATCH DataFrame thông thường!
+    # Mọi API của batch Spark (kể cả MERGE, repartition, JDBC) đều sử dụng được.
+    (batch_df.write.format("delta")
+        .mode("append")
+        .option("mergeSchema", "true")
+        .save("/data/enriched_events"))
+
+stream = enriched.writeStream \
+    .foreachBatch(upsertToLake) \
+    .option("checkpointLocation", "/mnt/ckpt/enrich") \
+    .trigger(processingTime="30 seconds") \
+    .start()
+\end{aivnpybox}
+
+Tại sao \texttt{foreachBatch} mạnh đến vậy?
+\begin{enumerate}
+    \item \textbf{Biến dòng thành lô}: \texttt{batch\_df} là Batch DataFrame chuẩn, không còn bị ràng buộc khắt khe của streaming.
+    \item \textbf{Ghi đồng thời nhiều đích (Fan-out Writes)}: vừa ghi Parquet vào Data Lake, vừa đẩy dòng lỗi vào Kafka, vừa cập nhật chỉ số lên Elasticsearch trong một lần duyệt.
+    \item \textbf{Hiện thực hóa Idempotent Upsert}: chìa khóa để đạt \textbf{End-to-End Exactly-Once}.
+\end{enumerate}
+
+\subsection{Exactly-Once nhờ Delta Lake \texttt{MERGE}}
+
+Khi job gặp sự cố mạng ở giây thứ 29 của một micro-batch và khởi động lại, Spark đọc lại toàn bộ batch đó từ Kafka (At-Least-Once). Nếu sink là \texttt{INSERT} thông thường vào PostgreSQL hay file Parquet, \textbf{dữ liệu batch đó bị ghi thành 2 lần}.
+
+Để biến At-Least-Once ở tầng vận chuyển thành \textbf{Exactly-Once} ở tầng lưu trữ, thao tác ghi phải \textbf{khả đẳng (idempotent)}: ghi 1 lần hay 10 lần một batch thì kết quả cuối trong bảng đích vẫn như nhau.
+
+\begin{aivnpybox}[Idempotent MERGE vào Delta Lake]
+from delta.tables import DeltaTable
+
+def merge_to_delta(micro_batch_df, batch_id):
+    delta_table = DeltaTable.forPath(spark, "/data/lake/events_gold")
+
+    # Khử trùng lặp nội bộ trong chính micro-batch trước khi merge
+    deduped_batch = micro_batch_df.dropDuplicates(["event_id"])
+
+    (delta_table.alias("target")
+        .merge(
+            deduped_batch.alias("source"),
+            "target.event_id = source.event_id"
+        )
+        .whenMatchedUpdateAll()
+        .whenNotMatchedInsertAll()
+        .execute())
+\end{aivnpybox}
+
+Với \texttt{MERGE INTO} theo khóa tự nhiên (\texttt{event\_id}), nếu micro-batch bị tính lại, các bản ghi đã tồn tại chỉ bị ghi đè bằng giá trị giống hệt, ngăn chặn hoàn toàn việc nhân bản dữ liệu.
+
+% =============================================================
+\section{Schema Evolution, bản ghi hỏng và Dead-Letter Queue}
+
+Dữ liệu từ Kafka Producer không bao giờ hoàn hảo: một phiên bản app mới có thể gửi sai kiểu, hoặc JSON bị cắt cụt do lỗi mạng. Chỉ cần \textbf{một bản ghi lỗi} (Poison Pill) cũng có thể làm sập cụm Spark đang chạy 24/7 nếu không có cơ chế tự vệ.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=aivnGreen, thick, rounded corners, fill=green!5, minimum height=0.9cm, align=center},
+  bad/.style={draw=red!70!black, thick, rounded corners, fill=red!5, minimum height=0.9cm, align=center},
+  arr/.style={-{Stealth[length=3mm]}, thick, aivnGreen}]
+  \node[box, minimum width=5cm] (k) {Kafka Topic (\texttt{events})};
+  \node[box, minimum width=6cm, below=0.7cm of k] (p) {Spark Schema Validation \& Parser};
+  \node[box, below left=1.1cm and -0.3cm of p, minimum width=5.4cm] (v) {Dữ liệu hợp lệ\\ \texttt{\_corrupt\_record IS NULL}};
+  \node[bad, below right=1.1cm and -0.3cm of p, minimum width=5.4cm] (c) {Dữ liệu hỏng\\ \texttt{\_corrupt\_record IS NOT NULL}};
+  \node[box, below=0.7cm of v, minimum width=5.4cm] (m) {Main Pipeline \& Lake\\ (Delta Gold / Marts)};
+  \node[bad, below=0.7cm of c, minimum width=5.4cm] (d) {Dead-Letter Queue\\ (Kafka \texttt{events-dlq} / Quarantine Delta)};
+  \draw[arr] (k) -- (p);
+  \draw[arr] (p) -- (v);
+  \draw[arr, red!70!black] (p) -- (c);
+  \draw[arr] (v) -- (m);
+  \draw[arr, red!70!black] (c) -- (d);
+\end{tikzpicture}
+\caption{Định tuyến dữ liệu hợp lệ và dữ liệu hỏng.}
+\label{fig:dlq}
+\end{figure}
+
+\subsection{Bẫy ngầm của \texttt{from\_json} mặc định}
+
+Nếu \texttt{amount} được khai báo \texttt{DoubleType} nhưng producer gửi \texttt{"amount": "INVALID\_NUMBER"}, \texttt{from\_json} sẽ:
+\begin{itemize}
+    \item \textbf{Không} ném exception.
+    \item Âm thầm gán cả struct \texttt{e} hoặc trường \texttt{amount} thành \texttt{NULL}.
+    \item Hậu quả: bộ lọc \texttt{amount > 1000} phía sau lặng lẽ loại bản ghi này. Dữ liệu thất thoát trong im lặng mà đội vận hành không hề hay biết.
+\end{itemize}
+
+\subsection{Cột bắt lỗi \texttt{columnNameOfCorruptRecord}}
+
+Spark cho phép giữ nguyên chuỗi thô của dòng JSON không parse được vào một cột riêng tên \texttt{\_corrupt\_record}.
+
+\begin{aivnpybox}[Bắt bản ghi hỏng]
+# 1. Định nghĩa Schema bao gồm cột _corrupt_record
+event_schema = StructType([
+    StructField("event_id", StringType(), True),
+    StructField("amount", DoubleType(), True),
+    StructField("country", StringType(), True),
+    StructField("event_type", StringType(), True),
+    StructField("_corrupt_record", StringType(), True) # Cột hứng dữ liệu lỗi
+])
+
+# 2. Đọc và parse với cấu hình bắt lỗi
+parsed_events = raw_kafka_stream.select(
+    F.from_json(
+        F.col("value").cast("string"),
+        event_schema,
+        {"columnNameOfCorruptRecord": "_corrupt_record"}
+    ).alias("data"),
+    F.col("timestamp").alias("kafka_ts")
+).select("data.*", "kafka_ts")
+\end{aivnpybox}
+
+\subsection{Kiến trúc Dead-Letter Queue (DLQ)}
+
+Sau khi tách được dữ liệu lành và hỏng, trong \texttt{foreachBatch} ta rẽ nhánh luồng dữ liệu:
+
+\begin{aivnpybox}[Định tuyến sang DLQ]
+def process_with_dlq(batch_df, batch_id):
+    # Tách nhánh dữ liệu sạch và dữ liệu lỗi
+    valid_records = batch_df.filter(F.col("_corrupt_record").isNull())
+    corrupt_records = batch_df.filter(F.col("_corrupt_record").isNotNull())
+
+    # 1. Xử lý dữ liệu sạch vào Main Data Lake
+    if not valid_records.isEmpty():
+        (valid_records.drop("_corrupt_record")
+            .write.format("delta")
+            .mode("append")
+            .save("/data/lake/events_valid"))
+
+    # 2. Định tuyến dữ liệu hỏng sang Dead-Letter Queue (DLQ)
+    if not corrupt_records.isEmpty():
+        (corrupt_records.select(
+            F.col("_corrupt_record").alias("raw_payload"),
+            F.col("kafka_ts"),
+            F.lit(batch_id).alias("batch_id"),
+            F.current_timestamp().alias("quarantine_ts")
+        ).write.format("delta")
+         .mode("append")
+         .save("/data/lake/quarantine_dlq"))
+\end{aivnpybox}
+
+Lợi ích của DLQ:
+\begin{itemize}
+    \item \textbf{Tính liên tục}: streaming job không bao giờ dừng đột ngột vì tin nhắn rác.
+    \item \textbf{Observability \& Replay}: kỹ sư truy vấn bảng \texttt{quarantine\_dlq} để xem bản ghi nào hỏng, báo đội Mobile/Backend sửa lỗi, rồi chạy batch job tái xử lý (replay) khi cần.
+\end{itemize}
+
+\subsection{Quản trị Schema Evolution}
+
+Khi hệ thống phát triển, trường mới sẽ được thêm vào message Kafka (ví dụ \texttt{device\_type: "iOS"}). Ở tầng Lakehouse, thêm tùy chọn
+
+\begin{aivnpybox}[mergeSchema]
+.option("mergeSchema", "true")
+\end{aivnpybox}
+
+giúp Delta Lake tự bổ sung cột mới vào bảng đích mà không gián đoạn luồng dữ liệu và không phải xóa bảng tạo lại.
+
+% =============================================================
+\section{Vận hành thực tế, trường hợp biên và chẩn đoán sự cố}
+
+\subsection{Tràn bộ nhớ State Store (Memory Blowups)}
+
+\textbf{Triệu chứng}: job chạy mượt 2 ngày đầu; đến ngày thứ 3, thời gian mỗi micro-batch tăng từ 2 giây lên 45 giây. Tab \textbf{Structured Streaming} trong Spark UI cho thấy \texttt{memoryUsedBytes} và \texttt{numRowsTotal} của State Store tăng dốc không dừng, cuối cùng executor chết với \texttt{java.lang.OutOfMemoryError: Java heap space}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.8\textwidth, height=5.5cm, xlabel={Thời gian}, ylabel={Kích thước State},
+  ticks=none, axis lines=left, legend pos=north west, legend style={font=\small}]
+\addplot[red!70!black, very thick, domain=0:10] {0.9*x^1.4};
+\addplot[aivnGreen, very thick, domain=0:10] {min(0.9*x^1.4, 8)};
+\legend{Không có Watermark (OOM), Có Watermark (cân bằng)}
+\end{axis}
+\end{tikzpicture}
+\caption{Kích thước State theo thời gian, có và không có Watermark.}
+\label{fig:state-size}
+\end{figure}
+
+\textbf{Nguyên nhân và cách khắc phục}:
+\begin{enumerate}
+    \item \textbf{Quên Watermark}: mọi \texttt{dropDuplicates}, Stream-Stream Join hay Aggregation đều tích lũy trạng thái vĩnh viễn nếu thiếu ranh giới Watermark.
+    \item \textbf{Watermark quá lớn}: \texttt{withWatermark("ts", "7 days")} buộc Spark giữ dữ liệu 7 ngày trong RAM. Hãy đánh giá thực tế: nếu dữ liệu chỉ trễ tối đa 2 giờ, hãy đặt \texttt{2 hours}.
+    \item \textbf{Chuyển backend sang RocksDB}: mặc định Spark dùng \texttt{HDFSBackedStateStoreProvider}, giữ toàn bộ trạng thái trong heap JVM; khi vượt vài GB, GC làm treo executor. \textbf{RocksDB State Store} lưu trạng thái trên SSD cục bộ và chỉ nạp block nóng vào RAM:
+\end{enumerate}
+
+\begin{aivnpybox}[Bật RocksDB State Store]
+spark.conf.set(
+    "spark.sql.streaming.stateStore.providerClass",
+    "org.apache.spark.sql.execution.streaming.state.RocksDBStateStoreProvider"
+)
+\end{aivnpybox}
+
+\subsection{Nghẽn cổ chai shuffle partitions}
+
+Trong Spark Batch, \texttt{spark.sql.shuffle.partitions} mặc định là \textbf{200}. Nếu micro-batch chỉ có 1.000 bản ghi mỗi 5 giây mà bị chia cho 200 partition thì mỗi task xử lý vỏn vẹn... 5 dòng; chi phí khởi tạo task, lập lịch CPU và network overhead lớn gấp hàng trăm lần thời gian tính toán thực. Với query độ trễ thấp và lưu lượng vừa phải, hãy giảm xuống phù hợp số core khả dụng (8, 16 hoặc 32):
+
+\begin{aivnpybox}[Giảm shuffle partitions]
+spark.conf.set("spark.sql.shuffle.partitions", "16")
+\end{aivnpybox}
+
+\subsection{Kiểm soát áp lực dội ngược (Backpressure)}
+
+Khi gặp sự cố mạng hoặc flash sale, Kafka có thể tích tụ hàng chục triệu tin nhắn tồn đọng (lag). Nếu Spark khởi động lại và cố đọc toàn bộ trong \textbf{một micro-batch}, cụm sẽ quá tải ngay. Hãy đặt cận trên cho lượng dữ liệu đọc vào:
+
+\begin{aivnpybox}[maxOffsetsPerTrigger]
+df = spark.readStream \
+    .format("kafka") \
+    .option("maxOffsetsPerTrigger", 50000) \  # Đọc tối đa 50,000 records mỗi batch
+    .load()
+\end{aivnpybox}
+
+Tùy chọn này giữ kích thước micro-batch trong giới hạn an toàn của bộ nhớ, cho phép hệ thống ``bắt kịp'' (catch up) êm ái.
+
+% =============================================================
+\section{Tổng kết, ma trận quyết định và câu hỏi phỏng vấn}
+
+\subsection{Khi nào nên dùng Spark Structured Streaming?}
+
+\noindent
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{3.0cm}>{\RaggedRight\arraybackslash}p{4.4cm}>{\RaggedRight\arraybackslash}p{4.0cm}>{\RaggedRight\arraybackslash}p{4.2cm}@{}}
+\rowcolor{rowLavender}
+\textbf{Yêu cầu} & \textbf{Spark Structured Streaming} & \textbf{Apache Flink} & \textbf{Kafka Streams} \\
+\addlinespace[3pt]
+\endhead
+Mô hình xử lý & Micro-batch (mặc định) / Continuous & Native event-driven (từng dòng) & Native event-driven (từng dòng) \\
+\addlinespace[3pt]
+Độ trễ tối thiểu & 100ms -- 1s & Siêu thấp ($<$ 10ms) & Rất thấp ($<$ 20ms) \\
+\addlinespace[3pt]
+Tích hợp Lakehouse & Tối ưu (native Delta/Iceberg) & Cần connector cấu hình ngoài & Không phù hợp cho hồ dữ liệu lớn \\
+\addlinespace[3pt]
+Vận hành hạ tầng & Cụm phân tán (YARN/K8s/Databricks) & Flink Cluster riêng & Ứng dụng nhúng nhẹ (Java app/K8s pod) \\
+\addlinespace[3pt]
+Làm giàu Stream-Static & Rất mạnh với Broadcast Join & Cần Async I/O hoặc cache ngoài & KTable lưu trên đĩa local \\
+\end{longtable}
+
+\begin{captionbelowboxaivn}
+Bảng 5: So sánh Spark Structured Streaming, Flink và Kafka Streams.
+\end{captionbelowboxaivn}
+
+\begin{guidelinebox}{Quy tắc ngón tay cái}
+\begin{itemize}
+    \item Cần \textbf{độ trễ dưới 20ms} (giao dịch chứng khoán tần suất cao, thiết bị y tế): chọn \textbf{Apache Flink}.
+    \item Xây \textbf{kiến trúc Microservices} thuần xoay quanh Kafka: chọn \textbf{Kafka Streams}.
+    \item Xây \textbf{Modern Data Lakehouse}, nơi dữ liệu streaming được làm giàu, ghép nối và ghi thẳng vào định dạng mở (Delta Lake, Iceberg) phục vụ BI và AI/ML: \textbf{Spark Structured Streaming} là lựa chọn tối ưu về kiến trúc và chi phí vận hành.
+\end{itemize}
+\end{guidelinebox}
+
+\subsection{Cheat-Sheet}
+
+\noindent
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{3.2cm}>{\RaggedRight\arraybackslash}p{12.4cm}@{}}
+\rowcolor{rowLavender}
+\textbf{Bước} & \textbf{Điểm cần nhớ} \\
+\addlinespace[3pt]
+\endhead
+Filter & Stateless: miễn phí tài nguyên, mở rộng vô hạn. \\
+\addlinespace[3pt]
+Enrich & Stream-Static: broadcast bảng nhỏ, chú ý bẫy Stale Cache. \\
+\addlinespace[3pt]
+Join & Stream-Stream: ràng buộc khoảng thời gian \textbf{và} bắt buộc có Watermark. \\
+\addlinespace[3pt]
+Deduplicate & Stateful: đưa timestamp vào key và gắn kèm Watermark. \\
+\addlinespace[3pt]
+DLQ Routing & Bắt dữ liệu hỏng bằng \texttt{columnNameOfCorruptRecord}. \\
+\addlinespace[3pt]
+Sink & Idempotent \texttt{MERGE} trong \texttt{foreachBatch} để bảo đảm Exactly-Once. \\
+\end{longtable}
+
+\begin{captionbelowboxaivn}
+Bảng 6: Cheat-sheet các bước biến đổi từ Kafka Source đến Sink.
+\end{captionbelowboxaivn}
+
+\begin{guidelinebox}{4 điều luật bất di bất dịch trong production}
+\begin{enumerate}
+    \item Luôn khai báo \texttt{checkpointLocation} trên storage bền vững (S3 / ADLS / HDFS).
+    \item Luôn định nghĩa Watermark cho mọi phép toán tích lũy trạng thái.
+    \item Luôn bảo đảm tính khả đẳng (Idempotence) ở tầng ghi cuối.
+    \item Luôn kiểm soát kích thước State Store và cấu hình \texttt{maxOffsetsPerTrigger} để chống nghẽn.
+\end{enumerate}
+\end{guidelinebox}
+
+\subsection{Câu hỏi thảo luận và phỏng vấn chuyên sâu}
+
+\subsubsection{Câu hỏi 1: Bản ghi ``biến mất bí ẩn'' trong Stream-Stream Join}
+
+\textbf{Tình huống}: pipeline ghép luồng Click (\texttt{left}) với luồng Mua hàng (\texttt{right}) bằng \texttt{leftOuter} join, watermark 1 giờ, interval join 15 phút. Khi kiểm tra bảng đích, khoảng 30\% lượt click không xuất hiện (kể cả dưới dạng dòng có vế phải \texttt{NULL}).
+
+\textbf{Câu hỏi}: điều gì đã xảy ra với 30\% bản ghi này? Lỗi nằm ở cấu hình Watermark hay Output Mode?
+
+\begin{examplebox}{Gợi ý trả lời}
+Trong \texttt{leftOuter} join, dòng bên trái chỉ được xuất ra khi tìm thấy dòng khớp bên phải, \textbf{hoặc} khi Watermark của luồng phải đã vượt qua khoảng tối đa của interval (\texttt{left\_ts + 15m}). Nếu click đến quá trễ so với chính Watermark của luồng trái (trễ hơn 1 giờ), Spark sẽ \textbf{thả rơi (drop) bản ghi ngay từ cửa vào}, không đưa vào State Store, khiến nó biến mất hoàn toàn khỏi kết quả.
+\end{examplebox}
+
+\subsubsection{Câu hỏi 2: Dimension thay đổi nhanh trong Stream-Static Join}
+
+\textbf{Tình huống}: cần làm giàu luồng giao dịch ngân hàng với trạng thái tài khoản (\texttt{ACTIVE}, \texttt{LOCKED}, \texttt{SUSPENDED}). Bảng trạng thái thay đổi liên tục trong ngày và được đồng bộ về Data Lake dưới dạng Delta table.
+
+\textbf{Câu hỏi}: nếu dùng \texttt{spark.read.table("account\_status")} như trong bản phác thảo, hệ thống gặp lỗi gì? Thiết kế lại thế nào để giao dịch phát sinh sau khi tài khoản bị khóa 1 giây được ghi nhận \texttt{LOCKED} mà không cần restart query?
+
+\begin{examplebox}{Gợi ý trả lời}
+Đọc tĩnh ngoài stream dính bẫy Stale Cache. Có hai hướng:
+\begin{enumerate}
+    \item Nếu chấp nhận độ trễ vài chục giây: đọc lại Delta table \texttt{account\_status} \textbf{bên trong} \texttt{foreachBatch(batch\_df, batch\_id)}. Nhờ ACID snapshot read của Delta Lake, mỗi micro-batch tự thấy phiên bản commit mới nhất.
+    \item Nếu cần độ trễ mili-giây: lưu dimension này ở In-memory Key-Value Store (như Redis) thay vì file trên Data Lake, rồi point-lookup trực tiếp trong \texttt{foreachBatch} hoặc hàm ánh xạ phân tán.
+\end{enumerate}
+\end{examplebox}
+
+\subsubsection{Câu hỏi 3: Vì sao Plain JDBC Sink không đảm bảo Exactly-Once?}
+
+\textbf{Tình huống}: một kỹ sư đề xuất ghi trực tiếp vào PostgreSQL bằng \texttt{df.writeStream.format("jdbc").start()}.
+
+\textbf{Câu hỏi}: tại sao kiến trúc này chỉ đạt At-Least-Once, và điều gì xảy ra với dữ liệu PostgreSQL khi một executor mất kết nối và Spark retry micro-batch đó?
+
+\begin{examplebox}{Gợi ý trả lời}
+JDBC connector chuẩn thực hiện các lệnh \texttt{INSERT INTO table VALUES (...)} phân tán trên từng executor. Khi micro-batch lỗi giữa chừng, một số executor có thể đã \texttt{INSERT} thành công trước khi crash. Khi Driver retry, toàn bộ micro-batch được phân bổ lại và \texttt{INSERT} chạy thêm lần nữa trên các bản ghi đó. Vì connector không tự phân giải xung đột khóa chính, bảng PostgreSQL chứa đầy dòng nhân bản. Cách khắc phục: dùng \texttt{foreachBatch} và tự viết \texttt{INSERT ... ON CONFLICT DO UPDATE} (Upsert).
+\end{examplebox}
+
+\end{document}

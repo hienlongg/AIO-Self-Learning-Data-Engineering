@@ -1,0 +1,27 @@
+% Hình: các phiên bản hiệu lực của khách 102 (Gantt)
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tikzpicture}[font=\small\sffamily, >=Stealth]
+  \draw[->, thick, gray!70] (0,0) -- (14,0) node[right] {thời gian};
+  \foreach \x/\l in {1.2/2023-01-10, 8/2024-12-15} {
+    \draw[thick] (\x,0.1) -- (\x,-0.1);
+    \node[below=2pt, font=\scriptsize\sffamily] at (\x,-0.1) {\l};
+  }
+  % hàng sk=501 (nhãn ngày phía trên thanh)
+  \node[anchor=east, font=\sffamily\footnotesize] at (0.9,3.0) {sk = 501};
+  \fill[orange!70!yellow, rounded corners=3pt] (1.2,2.6) rectangle (7.8,3.4)
+    node[midway, text=black] {Gold};
+  \node[font=\scriptsize\sffamily, anchor=south west, align=left] at (1.2,3.4) {\texttt{valid\_from}\\ 2023-01-10};
+  \node[font=\scriptsize\sffamily, anchor=south east, align=right] at (7.8,3.4) {\texttt{valid\_to}\\ 2024-12-14};
+  % hàng sk=502 (valid_from phía dưới, valid_to phía trên)
+  \node[anchor=east, font=\sffamily\footnotesize] at (0.9,1.3) {sk = 502};
+  \fill[brandIndigo!85, rounded corners=3pt] (8,0.9) rectangle (12.6,1.7)
+    node[midway, text=white] {Platinum};
+  \fill[brandIndigo!85] (12.6,0.9) -- (13.6,1.3) -- (12.6,1.7) -- cycle;
+  \node[font=\scriptsize\sffamily, anchor=north west, align=left] at (8,0.9) {\texttt{valid\_from}\\ 2024-12-15};
+  \node[font=\scriptsize\sffamily, anchor=south east, align=right] at (13.9,1.7) {\texttt{valid\_to} = 9999-12-31\\ (\texttt{is\_current} = TRUE)};
+  % ranh giới
+  \draw[dashed, red!70!black, thick] (7.9,0.2) -- (7.9,4.3);
+  \node[red!70!black, font=\scriptsize\sffamily\bfseries, align=center] at (7.9,4.9) {ranh giới: không chồng,\\không hở ngày};
+\end{tikzpicture}}
+\end{center}
