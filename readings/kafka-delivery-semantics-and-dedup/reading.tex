@@ -664,11 +664,9 @@
 }
 
 \author{%
-  \textbf{name\_1}
+  \textbf{Trương Hiển Long}
   \hspace{2.8em}
-  \textbf{name\_2}\\
-  \vspace{1em}
-  \textbf{Proofreading: }
+  \textbf{Vũ Hoàng Tuệ Anh}
 }
 
 \postauthor{%
@@ -720,6 +718,13 @@
 % =============================================================
 \section{Lời mở đầu: Cơn ác mộng ``Nhân bản Đơn hàng''}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/Kafka Delivery Semantics and Deduplication.png}
+  \caption{Minh họa dòng thời gian (Timeline) của sự kiện \texttt{ORD-9999} trong hệ thống phân tán Kafka. Khi Worker đầu tiên bị mất kết nối mạng, Worker thứ hai đọc lại sự kiện chưa được commit và gây ra lỗi trùng lặp giao dịch.}
+  \label{fig:kafka_delivery_semantics_deduplication}
+\end{figure}
+
 Hãy hình dung một kịch bản thực tế tại một sàn thương mại điện tử lớn trong sự kiện Flash Sale:
 
 \begin{examplebox}{Tình huống: Flash Sale 00:00:00}
@@ -731,6 +736,7 @@ Hãy hình dung một kịch bản thực tế tại một sàn thương mại �
 \medskip
 \textit{Một Worker dự phòng ngay lập tức được cấp quyền đọc lại phân vùng đó. Nó đọc lại chính sự kiện \texttt{ORD-9999} chưa được commit và tiếp tục gửi lệnh trừ tiền sang cổng thanh toán lần thứ hai. Tài khoản khách hàng bị trừ \textbf{40.000.000 VNĐ} cho một món hàng duy nhất.}
 \end{examplebox}
+
 
 Đây không phải là lỗi giả định; đây là bản chất tất yếu của \textbf{Hệ thống phân tán (Distributed Systems)}. Trong môi trường mạng không hoàn hảo, bất kỳ mắt xích nào --- từ mạng, tiến trình máy chủ, bộ nhớ, đến đĩa cứng --- đều có thể sụp đổ bất thình lình.
 

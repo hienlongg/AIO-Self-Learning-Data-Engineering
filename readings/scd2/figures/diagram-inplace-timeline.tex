@@ -1,0 +1,31 @@
+% Hình: tác động của UPDATE in-place lên lịch sử báo cáo
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tikzpicture}[font=\small\sffamily, >=Stealth]
+  % trục thời gian
+  \draw[->, thick, gray!70] (0,0) -- (14.2,0) node[right] {thời gian};
+  \foreach \x/\l in {1/2023-01-10, 8/2024-12-15} {
+    \draw[thick] (\x,0.1) -- (\x,-0.1);
+    \node[below=2pt, font=\scriptsize\sffamily] at (\x,-0.1) {\l};
+  }
+  % thực tế
+  \node[anchor=east, font=\bfseries\sffamily] at (-0.2,1.2) {Thực tế};
+  \fill[orange!70!yellow, rounded corners=3pt] (1,0.8) rectangle (7.9,1.6)
+    node[midway, text=black] {Gold};
+  \fill[brandIndigo!85, rounded corners=3pt] (8,0.8) rectangle (13.6,1.6)
+    node[midway, text=white] {Platinum};
+  % sau UPDATE
+  \node[anchor=east, align=right, font=\bfseries\sffamily] at (-0.2,-1.9) {Sau\\UPDATE};
+  \fill[brandIndigo!85, rounded corners=3pt] (1,-2.3) rectangle (13.6,-1.5)
+    node[midway, text=white] {Platinum (dòng duy nhất)};
+  \node[red!70!black, font=\scriptsize\sffamily\bfseries] at (7.3,-2.7) {lịch sử Gold đã bị ghi đè};
+  % truy vấn
+  \foreach \x/\q in {3.5/{Q1: 2023-06-30}, 10.8/{Q2: 2025-01-31}} {
+    \draw[dashed, gray] (\x,2.6) -- (\x,-1.5);
+    \node[draw, rounded corners=2pt, fill=white, inner sep=3pt, font=\scriptsize\sffamily] at (\x,2.95) {\q};
+  }
+  \node[green!40!black, font=\scriptsize\sffamily\bfseries] at (3.5,2.25) {đúng: Gold};
+  \node[red!70!black, font=\scriptsize\sffamily\bfseries] at (3.5,-3.15) {sai: trả về Platinum};
+  \node[green!40!black, font=\scriptsize\sffamily\bfseries] at (10.8,2.25) {đúng: Platinum};
+\end{tikzpicture}}
+\end{center}

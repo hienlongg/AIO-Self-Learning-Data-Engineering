@@ -658,11 +658,9 @@
 }
 
 \author{%
-  \textbf{name\_1}
+  \textbf{Trương Hiển Long}
   \hspace{2.8em}
-  \textbf{name\_2}\\
-  \vspace{1em}
-  \textbf{Proofreading: }
+  \textbf{Vũ Hoàng Tuệ Anh}
 }
 
 \postauthor{%
@@ -705,6 +703,17 @@
 }
 
 
+
+% --- Style dùng chung cho sơ đồ TikZ -------------------------------------------
+\tikzset{
+  dbox/.style={draw=aivnGreen, fill=green!4, rounded corners=3pt, thick, align=center,
+               font=\small, inner sep=5pt, minimum height=1.2cm, text width=2.5cm},
+  dhi/.style={dbox, fill=aivnGreen, text=white, font=\small\bfseries},
+  dind/.style={dbox, draw=brandIndigo, fill=rowLavender},
+  dblue/.style={dbox, draw=aivnCodeOutputColor, fill=aivnCodeOutputColor!8},
+  darr/.style={-{Stealth[length=2.5mm]}, thick, color=aivnGreen!80!black},
+  dnote/.style={font=\footnotesize\itshape, align=center, text=gray!70!black},
+}
 
 \begin{document}
 \maketitle
@@ -816,11 +825,23 @@ Bảng 2: Hai thế giới dữ liệu OLTP và OLAP.
 \subsection{Analytics Phase nằm ở đâu?}
 
 Luồng dữ liệu hiện đại thường đi qua các chặng sau:
-\[
-\text{Nguồn (OLTP, Logs, Events)} \xrightarrow{\text{Extract \& Load}} \text{Raw / Bronze} \xrightarrow{\textbf{Transform (dbt)}} \text{Marts / Gold} \xrightarrow{\text{Consume}} \text{BI, ML, Apps}
-\]
-
-\diagramplaceholder[Luồng dữ liệu modern data stack: Sources (OLTP, Logs, Events) → Extract \& Load → Raw/Bronze trong Warehouse → Transform/Analytics (dbt) được tô nổi bật → Marts/Gold → BI, ML, Apps.]{6cm}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=0.55cm, text width=2.3cm]
+  \node[dbox] (src) {\textbf{Nguồn}\\[1pt]\footnotesize OLTP, Logs, Events};
+  \node[dbox, right=of src] (raw) {\textbf{Raw / Bronze}\\[1pt]\footnotesize Dữ liệu thô trong Warehouse};
+  \node[dhi, right=of raw] (tr) {Transform\\[1pt]\footnotesize\mdseries Analytics Phase (dbt)};
+  \node[dbox, right=of tr] (mart) {\textbf{Marts / Gold}\\[1pt]\footnotesize Dữ liệu sẵn sàng phân tích};
+  \node[dbox, right=of mart] (use) {\textbf{Tiêu thụ}\\[1pt]\footnotesize BI, ML, Apps};
+  \draw[darr] (src) -- (raw);
+  \draw[darr] (raw) -- (tr);
+  \draw[darr] (tr) -- (mart);
+  \draw[darr] (mart) -- (use);
+  \draw[decorate, decoration={brace, mirror, amplitude=5pt}, color=aivnGreen, thick]
+    ([yshift=-0.2cm]raw.south west) -- ($(mart.south east |- raw.south)+(0,-0.2cm)$)
+    node[midway, below=9pt, dnote, text width=12cm] {Kho dữ liệu (Warehouse) --- ELT: Load trước, Transform sau};
+\end{tikzpicture}
+\end{figure}
 
 \begin{figurecaptionmodern}
 \capfig{Vị trí của Analytics Phase trong luồng dữ liệu ELT hiện đại.}
@@ -895,7 +916,25 @@ Hạ tầng lưu trữ và tính toán đám mây đã sinh ra những phương 
     \item \textbf{Headless Semantic Layer (dbt Semantic Layer, Cube.js)}: thay vì nhét mọi phép tổng hợp vào các bảng vật lý tĩnh, ta định nghĩa logic tính toán trong một tầng metadata chung. Tầng này nhận yêu cầu từ Tableau hay PowerBI và tự sinh SQL tối ưu đẩy xuống warehouse xử lý.
 \end{enumerate}
 
-\diagramplaceholder[Bản đồ so sánh các hướng tiếp cận: Kimball Star Schema, OBT, Lakehouse, Data Mesh, Semantic Layer --- mỗi hướng kèm 1--2 từ khóa và đánh dấu trục ``tập trung hóa $\leftrightarrow$ phi tập trung hóa''.]{6.5cm}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[text width=2.6cm]
+  \node[dind] (k) at (0,0)     {\textbf{Kimball}\\[1pt]\footnotesize Star Schema, Conformed Dims};
+  \node[dbox] (o) at (3.4,0)   {\textbf{OBT}\\[1pt]\footnotesize Một bảng phi chuẩn hóa, không JOIN};
+  \node[dbox] (l) at (6.8,0)   {\textbf{Lakehouse}\\[1pt]\footnotesize Iceberg / Delta, nhiều engine cùng đọc};
+  \node[dbox] (s) at (10.2,0)  {\textbf{Semantic Layer}\\[1pt]\footnotesize Metric định nghĩa một lần, sinh SQL};
+  \node[dblue] (m) at (13.6,0) {\textbf{Data Mesh}\\[1pt]\footnotesize Domain sở hữu Data Product};
+  \node[dnote, above=0.15cm of k] {chuẩn hóa mô hình};
+  \node[dnote, above=0.15cm of o] {tối ưu truy vấn};
+  \node[dnote, above=0.15cm of l] {hạ tầng lưu trữ mở};
+  \node[dnote, above=0.15cm of s] {logic chỉ số};
+  \node[dnote, above=0.15cm of m] {tổ chức \& sở hữu};
+  \draw[{Stealth[length=2.5mm]}-{Stealth[length=2.5mm]}, thick, color=gray!70]
+    (-1.3,-1.6) -- (14.9,-1.6);
+  \node[dnote, anchor=west, text width=4cm] at (-1.3,-2.0) {Tập trung hóa};
+  \node[dnote, anchor=east, text width=4cm, align=right] at (14.9,-2.0) {Phi tập trung hóa};
+\end{tikzpicture}
+\end{figure}
 
 \begin{figurecaptionmodern}
 \capfig{Bản đồ các hướng tiếp cận tổ chức dữ liệu phân tích.}
@@ -937,7 +976,22 @@ Một dự án dbt chuẩn chia mã nguồn thành ba tầng rõ rệt:
 Bảng 4: Ba tầng của một dự án dbt chuẩn (Sources $\rightarrow$ Staging $\rightarrow$ Intermediate $\rightarrow$ Marts).
 \end{captionbelowboxaivn}
 
-\diagramplaceholder[Sơ đồ dọc: Sources (Raw) → Staging (stg\_) → Intermediate (int\_) → Marts (mart\_) với mô tả ngắn cho từng tầng; Marts rẽ nhánh thành mart\_sales\_daily và mart\_customer\_360.]{7cm}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=0.7cm]
+  \node[dbox, text width=3.4cm] (src) {\textbf{Sources (Raw)}};
+  \node[dbox, text width=3.4cm, below=of src] (stg) {\textbf{Staging} \texttt{stg\_}};
+  \node[dbox, text width=3.4cm, below=of stg] (int) {\textbf{Intermediate} \texttt{int\_}};
+  \node[dhi, text width=3.4cm, below=of int] (mart) {Marts \texttt{mart\_}};
+  \draw[darr] (src) -- (stg);
+  \draw[darr] (stg) -- (int);
+  \draw[darr] (int) -- (mart);
+  \node[right=0.6cm of src, anchor=west, font=\small, text width=10.5cm] {Bảng thô do pipeline Extract \& Load nạp vào kho};
+  \node[right=0.6cm of stg, anchor=west, font=\small, text width=10.5cm] {Làm sạch kỹ thuật: đổi tên cột, ép kiểu, quan hệ 1:1 với nguồn};
+  \node[right=0.6cm of int, anchor=west, font=\small, text width=10.5cm] {Single Source of Truth: JOIN các thực thể, áp dụng business logic, xác định grain};
+  \node[right=0.6cm of mart, anchor=west, font=\small, text width=10.5cm] {Tầng phục vụ: Fact, Dimension, bảng tổng hợp theo business domain};
+\end{tikzpicture}
+\end{figure}
 
 \begin{figurecaptionmodern}
 \capfig{Kiến trúc phân tầng trong một dự án dbt.}
@@ -1040,7 +1094,18 @@ Các chỉ số hành vi và phân nhóm (segmentation):
 last_order_date < DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY) AS is_churn_risk
 \end{aivnsqlbox}
 
-\diagramplaceholder[Lineage từ int\_order\_lines\_enriched (grain: order line) rẽ thành hai mart: mart\_sales\_daily (grain: ngày, phục vụ C-level/Sales) và mart\_customer\_360 (grain: khách hàng, phục vụ CRM/Marketing).]{6.5cm}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[text width=5.6cm]
+  \node[dind, text width=7cm] (int) at (0,0) {\texttt{int\_order\_lines\_enriched}\\[1pt]\footnotesize Grain: từng dòng sản phẩm trong đơn};
+  \node[dhi, text width=6.2cm] (a) at (-4.4,-3) {\texttt{mart\_sales\_daily}};
+  \node[dhi, text width=6.2cm] (b) at (4.4,-3) {\texttt{mart\_customer\_360}};
+  \draw[darr] (int.south) -- ++(0,-0.6) -| node[pos=0.25, above, dnote] {\texttt{GROUP BY order\_date}} (a.north);
+  \draw[darr] (int.south) -- ++(0,-0.6) -| node[pos=0.25, above, dnote] {\texttt{GROUP BY customer\_id}} (b.north);
+  \node[dbox, below=0.5cm of a, text width=6.2cm, font=\footnotesize] {Grain: ngày\\Phục vụ: C-level, Trưởng phòng Sales\\AOV, Refund Rate};
+  \node[dbox, below=0.5cm of b, text width=6.2cm, font=\footnotesize] {Grain: khách hàng\\Phục vụ: CRM, Marketing, CSKH\\LTV, Tier, Churn Risk};
+\end{tikzpicture}
+\end{figure}
 
 \begin{figurecaptionmodern}
 \capfig{Từ một Intermediate model sinh ra hai Data Mart với grain khác nhau.}

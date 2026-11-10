@@ -1,0 +1,27 @@
+% Hình: luồng dữ liệu đầy đủ cho dimension có lịch sử
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tikzpicture}[font=\small\sffamily, >=Stealth,
+  box/.style={draw=aivnGreen, fill=rowLavender, rounded corners=3pt, minimum height=1.0cm, text width=2.8cm, align=center, inner sep=4pt},
+  store/.style={draw=brandIndigo, fill=brandIndigo!12, cylinder, shape border rotate=90, aspect=0.25, minimum height=1.4cm, minimum width=2.2cm, align=center, font=\small\sffamily},
+  hi/.style={line width=1.4pt, draw=aivnGreen, fill=aivnGreen!15, text width=3.8cm, font=\footnotesize\sffamily},
+  lab/.style={font=\scriptsize\sffamily, fill=white, inner sep=1.5pt}]
+  % hàng 1
+  \node[store] (oltp) at (0,0) {OLTP};
+  \node[box] (stg) at (3.9,0) {\texttt{stg\_customers}};
+  \node[box] (snap) at (7.9,0) {dbt snapshot\\ {\footnotesize (check hash)}};
+  \node[box, hi] (dim) at (12.2,0) {\texttt{dim\_customer\_scd2}};
+  \draw[->, thick] (oltp) -- (stg);
+  \draw[->, thick] (stg) -- (snap);
+  \draw[->, thick] (snap) -- (dim);
+  % hàng 2
+  \node[box] (fct) at (0,-3.6) {\texttt{fct\_orders}};
+  \node[box, text width=3.4cm] (join) at (7.9,-3.6) {point-in-time join};
+  \node[box] (dash) at (12.2,-3.6) {Dashboards};
+  \draw[->, thick] (oltp) -- node[lab, right] {đơn hàng} (fct);
+  \draw[->, thick] (fct) -- node[lab, above] {\texttt{order\_date}} (join);
+  \draw[->, thick] (dim.south) |- ([yshift=0.6cm]join.north) -- (join.north);
+  \draw[->, thick] (join) -- (dash);
+  \node[font=\scriptsize\sffamily, align=center, anchor=south] at (10.0,-2.0) {\texttt{customer\_id} +\\ \texttt{order\_date BETWEEN valid\_from AND valid\_to}};
+\end{tikzpicture}}
+\end{center}

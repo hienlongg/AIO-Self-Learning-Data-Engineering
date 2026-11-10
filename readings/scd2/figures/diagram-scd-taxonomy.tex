@@ -1,0 +1,26 @@
+% Hình: cây phân loại các chiến lược SCD
+\begin{center}
+\adjustbox{max width=\linewidth}{%
+\begin{tikzpicture}[font=\small\sffamily, >=Stealth,
+  type/.style={draw=aivnGreen, fill=rowLavender, rounded corners=3pt, minimum width=1.8cm, minimum height=0.8cm, font=\bfseries\sffamily},
+  how/.style={draw=gray!60, fill=white, rounded corners=3pt, text width=3.8cm, minimum height=0.8cm, align=left, inner sep=4pt},
+  ex/.style={text width=5.6cm, align=left, font=\footnotesize\sffamily\itshape, text=gray!50!black},
+  best/.style={draw=aivnGreen, fill=aivnGreen!15, line width=1.3pt}]
+  \node[draw=brandIndigo, fill=brandIndigo, text=white, rounded corners=3pt, minimum height=1.2cm, text width=1.8cm, align=center, font=\bfseries\sffamily] (root) at (0,0) {Chiến lược SCD};
+  \foreach \i/\yy/\ty/\hw/\eg in {
+    0/{ 2.9}/{Type 0}/{Giữ nguyên, không đổi}/{thuộc tính cố định: ngày đăng ký, ngày sinh},
+    1/{ 1.75}/{Type 1}/{Ghi đè, không giữ lịch sử}/{sửa lỗi chính tả tên, địa chỉ email},
+    2/{ 0.6}/{Type 2}/{Thêm dòng mới + khoảng hiệu lực}/{{\bfseries\color{aivnGreen}chuẩn công nghiệp:} hạng khách hàng, vùng phụ trách},
+    3/{-0.55}/{Type 3}/{Thêm cột ``giá trị trước''}/{vùng cũ / vùng mới khi quy hoạch lại},
+    4/{-1.7}/{Type 4}/{Bảng chính + bảng lịch sử phụ}/{thuộc tính đổi nhanh $\to$ mini-dimension},
+    6/{-2.85}/{Type 6}/{Lai 1 + 2 + 3}/{cần cả hiệu lực lẫn giá trị hiện tại trên một dòng}} {
+    \node[type] (t\i) at (3.2,\yy) {\ty};
+    \node[how, right=0.35cm of t\i] (h\i) {\hw};
+    \node[ex, right=0.25cm of h\i] (e\i) {\eg};
+    \draw[->, gray!70] (root.east) to[out=0,in=180] (t\i.west);
+  }
+  % làm nổi bật Type 2
+  \node[type, best, fill=aivnGreen!25] at (t2) {Type 2};
+  \node[how, best] at (h2) {Thêm dòng mới + khoảng hiệu lực};
+\end{tikzpicture}}
+\end{center}

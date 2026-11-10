@@ -658,11 +658,9 @@
 }
 
 \author{%
-  \textbf{name\_1}
+  \textbf{Trương Hiển Long}
   \hspace{2.8em}
-  \textbf{name\_2}\\
-  \vspace{1em}
-  \textbf{Proofreading: }
+  \textbf{Vũ Hoàng Tuệ Anh}
 }
 
 \postauthor{%
@@ -845,7 +843,7 @@ Nếu Fact table join Dimension theo business key (\texttt{customer\_id}), hệ 
     \item \textbf{Fact join sai ngữ cảnh}: đơn hàng năm 2023 sẽ được ghép vào dòng Platinum mới nhất, vô hình trung ``nâng hạng'' cho khách hàng trong quá khứ.
 \end{enumerate}
 
-\diagramplaceholder[Timeline của khách hàng 102 với 2 phiên bản trạng thái (Gold từ 2023-01-10, Platinum từ 2024-12-15); các mốc truy vấn khác nhau cho ra kết quả khác nhau trên cùng một dòng dimension.]{7cm}
+\input{figures/diagram-inplace-timeline}
 
 \begin{figurecaptionmodern}
 \capfig{Tác động của việc \texttt{UPDATE} in-place lên lịch sử báo cáo.}
@@ -960,7 +958,7 @@ Type 6 & Hybrid 1+2+3           & Đầy đủ    & Cao       & Khá cao \\
 Bảng 5: So sánh toàn cảnh các chiến lược SCD.
 \end{captionbelowboxaivn}
 
-\diagramplaceholder[Cây phân loại SCD Type 0/1/2/3/4/6: mỗi nhánh kèm 1--2 từ khóa mô tả cách lưu và một ví dụ sử dụng; nhánh Type 2 được highlight là ``chuẩn công nghiệp''.]{7cm}
+\input{figures/diagram-scd-taxonomy}
 
 \begin{figurecaptionmodern}
 \capfig{Cây phân loại các chiến lược SCD.}
@@ -1022,7 +1020,7 @@ VALUES
     (502, 102, 'Platinum', '2024-12-15', '9999-12-31', TRUE);
 \end{aivnsqlbox}
 
-\diagramplaceholder[Gantt các version của khách 102: thanh ``Gold'' chạy từ 2023-01-10 và đóng tại 2024-12-14; thanh ``Platinum'' từ 2024-12-15 mở dài tới 9999-12-31; hai thanh không chồng ngày.]{7cm}
+\input{figures/diagram-gantt-versions}
 
 \begin{figurecaptionmodern}
 \capfig{Trực quan hóa các phiên bản hiệu lực của khách 102.}
@@ -1059,7 +1057,7 @@ FROM stg_customers;
     \item \textbf{Hard delete} (dòng biến mất khỏi nguồn): snapshot đánh dấu hết hạn (\texttt{valid\_to} đóng lại) nhưng \textbf{không xóa} dòng dimension, để lịch sử báo cáo vẫn còn tham chiếu.
 \end{enumerate}
 
-\diagramplaceholder[Pipeline phát hiện thay đổi: stg\_customers → tính attr\_hash → so sánh với hash của dòng is\_current=TRUE → ba nhánh: ``không đổi'' (bỏ qua), ``đổi'' (hết hạn + chèn dòng mới), ``biến mất khỏi nguồn'' (chỉ hết hạn, không xóa).]{7cm}
+\input{figures/diagram-change-pipeline}
 
 \begin{figurecaptionmodern}
 \capfig{Sơ đồ luồng pipeline phát hiện thay đổi.}
@@ -1143,7 +1141,7 @@ JOIN dim_customer_scd2 d
 \textbf{Bẫy fan-out}: nếu quên điều kiện thời gian, mỗi đơn hàng sẽ join với \emph{cả} hai phiên bản của khách --- doanh thu ``phồng'' gấp đôi. Luôn nhớ: \textbf{join với bảng SCD2 luôn cần 2 điều kiện} --- business key và khoảng thời gian.
 \end{notebox}
 
-\diagramplaceholder[Luồng dữ liệu đầy đủ cho một dimension có lịch sử: OLTP → stg\_customers → dbt snapshot (check hash) → dim\_customer\_scd2 → point-in-time join với fct\_orders → dashboards.]{7cm}
+\input{figures/diagram-full-flow}
 
 \begin{figurecaptionmodern}
 \capfig{Luồng dữ liệu đầy đủ cho một dimension có lịch sử.}
